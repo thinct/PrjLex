@@ -1,0 +1,151 @@
+\documentclass[AutoFakeBold,AutoFakeSlant]{beamer}
+\usepackage{ctex, hyperref}
+\usepackage[T1]{fontenc}
+
+% other packages
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+
+\author{@六边形游乐场}
+\title{Beamer 制作演示}
+\subtitle{一个简单的例子}
+\institute{六边形宇宙驻B站办事处}
+\date{2022年12月2日}
+\usepackage{Tsinghua}
+
+% defs
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{gray}{0.55}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+
+\begin{document}
+
+\kaishu
+\begin{frame}
+    \titlepage
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[width=0.2\linewidth]{pic/Tsinghua_University_Logo.eps}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+\tableofcontents[sectionstyle=show,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+\end{frame}
+
+
+\section{基本框架}
+\begin{frame}[fragile]{页面结构}
+
+1. 页面\\
+每一页都在 frame 环境里，没有例外\\
+\vspace{1em}
+2. 封面\\
+封面也是，只是不同的模版会有一些各自的设计\\
+\vspace{1em}
+3. 目录\\
+一般会在目录里显示章和节，和论文模版类似，可以控制显示到哪一级和具体的样式
+\begin{itemize}
+    \item 章 \verb|\section{...}|
+    \item 节 \verb|\subsection{...}|
+\end{itemize}
+\vspace{1em}
+从上面几句可以看出，只要直接在 frame 里打字就可以直接形成一页 PPT 的内容，是不是很简单\\
+
+\end{frame}
+
+\section{进阶使用}
+\subsection{页面小知识}
+
+\begin{frame}[fragile]{标题：标题可以这样写}
+    页面标题可以直接写在 frame 环境的后面，就像本页
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{标题：也可以使用专门的命令}
+    也可以使用这个更加通用的命令\\
+    \vspace{1em}
+\begin{verbatim}
+    \frametitle{...}
+\end{verbatim}
+    \vspace{1em}
+    大部分模版也都支持\\
+\end{frame}
+
+\begin{frame}[fragile]{强调：文本突出}
+\begin{itemize}
+    \item \alert{强调} \verb|\alert{...}|
+    \item \colorbox{yellow}{底色} \verb|\colorbox{...}|
+    \item \underline{下划线} \verb|\underline{...}|
+    \item \textbf{Bold} \verb|\textbf{...}|
+    \item \emph{Italic} \verb|\emph{...}|
+    \item 关于这个模版的\textbf{中文加粗} ，请看注释
+% 这个模版的中文加粗有点问题，调整它需要介绍过多内容
+% 关于LaTeX 字体的内容，可以参考学习 https://zhuanlan.zhihu.com/p/538459335
+% 这个模版里中文加粗的问题，我的处理方式比较简单，直接将第一行修改为 \documentclass[AutoFakeBold,AutoFakeSlant]{beamer} 增加了 AutoFakeBold，效果一般，但是能用了
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{强调：Block 环境}
+\begin{block}{小知识1}
+    色块可以让段落更加鲜明
+\end{block}
+\vspace{1em}
+\begin{block}{小知识2}
+    阅读体验更好
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{动画}
+这毕竟是PDF，不要指望酷炫的动画效果，只能实现控制每页出现一点的渐变显示效果
+\vspace{1em}
+    \begin{itemize}
+        \item 使用 \verb|\pause| 命令
+        \item 使用 \verb|\onslde<n>{...}| 命令
+        \item 使用 \verb|\only<n>{...}| 命令
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{动画：Pause 命令举例}
+首先，用 \LaTeX 做 PPT 也挺好\\
+\vspace{1em}
+\pause
+其次，用 Keynote 画 PPT 也很好，改天单独做几期视频 \\
+\end{frame}
+
+
+
+\subsection{其他 \LaTeX 常见元素}
+\begin{frame}{常见元素}
+比如说：
+    \begin{itemize}
+        \item 有序列表、无序列表: itemize、enumerate 环境
+        \item 插入图片: figure 环境
+        \item 插入表格: table 环境
+        \item 插入公式: equation 环境
+        \item 参考文献的引用: ref、footnote等命令
+    \end{itemize}
+    \vspace{1em}
+    \begin{block}{小提示}
+    以上这些内容的插入，跟前几期视频介绍的，在论文中插入的语法一摸一样，请回看前几期视频，在此不做赘述 \\ 
+    \end{block}
+\end{frame}
+\end{document}

@@ -1,0 +1,69 @@
+\newlength{\nomitemorigsep}
+\setlength{\nomitemorigsep}{\nomitemsep}
+\setlength{\nomitemsep}{-\parsep}
+\makenomenclature
+\renewcommand{\nomgroup}[1]{%
+  \itemsep\nomitemorigsep%
+  \ifthenelse{%
+    \equal{#1}{A}%
+  }{%
+  \item[\textbf{Abbreviations}]%
+
+  }{%
+    \ifthenelse{\equal{#1}{S}}{%
+    \item[\textbf{List of Symbols}]%
+
+    }{}%
+  }%
+  \itemsep\nomitemsep
+}
+\renewcommand{\nomname}{Nomenclature}
+\markboth{\MakeUppercase\nomname}{\MakeUppercase\nomname}
+\printnomenclature[0.8in]
+\nomenclature[A]{ADS}{Advanced Design System}
+\nomenclature[A]{ESR}{Equivalent series resistance}
+\nomenclature[A]{MOSFET}{Metal-oxide-semiconductor field effect transistor}
+\nomenclature[A]{MWPT}{Multiple-receiver wrieless power transfer}
+\nomenclature[A]{PA}{Power amplifier}
+\nomenclature[A]{RF}{Radio frequency}
+\nomenclature[A]{SRR}{Synchronous Resonant Rectifier}
+\nomenclature[A]{WPT}{Wireless power transfer}
+\nomenclature[A]{ZVS}{Zero-voltage-switching}
+
+
+
+
+\nomenclature[S]{$C_{0}$}{Capacitor in resonant tank of Class E PA}
+\nomenclature[S]{$C_{r}$}{Diode/switch shunt capacitor of Class E rectifier}
+\nomenclature[S]{$C_{S}$}{Switch shunt capacitor of Class E PA}
+\nomenclature[S]{$C_{rx}$}{Compensation capacitor of receiving coil}
+\nomenclature[S]{$C_{tx}$}{Compensation capacitor of transmitting coil}
+\nomenclature[S]{$k$}{Mutual inductance coefficient of coupling coils}
+\nomenclature[S]{$k_{ij}$}{Mutual inductance coefficient between $i$-th and $j$-th coils in MWPT}
+\nomenclature[S]{$L_{0}$}{Inductor in resonant tank of Class E PA}
+\nomenclature[S]{$L_{rx}$}{Inductance of receiving coil}
+\nomenclature[S]{$L_{tx}$}{Inductance of transmitting coil}
+\nomenclature[S]{$M$}{Mutual inductance of coupling coils}
+\nomenclature[S]{$M_{ij}$}{Mutual inductance between $i$-th and $j$-th coils in MWPT}
+\nomenclature[S]{$r_{rx}$}{ESR of receiving coil}
+\nomenclature[S]{$r_{tx}$}{ESR of transmitting coil}
+\nomenclature[S]{$R_{L}$}{Dc load of rectifier}
+\nomenclature[S]{$R_{rec}$}{Input resisance of rectifier}
+\nomenclature[S]{$v_{DS}$}{Drain-source voltage of MOSFET}
+\nomenclature[S]{$v_{GS}$}{Gate-source voltage of MOSFET}
+\nomenclature[S]{$X_{rec}$}{Input reactance of rectifier}
+\nomenclature[S]{$Z_{rec}$}{Input impedance of rectifier}
+\nomenclature[S]{$Z_{coil}$}{Input impedance of transmitting coil}
+\nomenclature[S]{$\eta_{PA}$}{Efficiency of PA}
+\nomenclature[S]{$\eta_{rec}$}{Efficiency of rectifier}
+\nomenclature[S]{$\eta_{sys}$}{Dc-dc efficiency of WPT system}
+\nomenclature[S]{$\eta_{coil2load}$}{Power transfer efficiency from transmitting coil to dc load}
+
+
+\cleardoublepage 
+
+
+
+
+
+

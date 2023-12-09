@@ -1,0 +1,353 @@
+\documentclass[12pt,a4paper,twoside,openright]{report}
+%
+%-----Packages
+%
+\usepackage[english]{babel}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts,amssymb}
+\usepackage{natbib}
+\usepackage[normalsize,bf]{caption}
+\usepackage[dvips]{graphicx}
+\usepackage{color}
+\usepackage[breaklinks,linktocpage]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{lettrine}
+\usepackage{comment}
+\usepackage{pifont}
+\usepackage{soul, color}  %\hl
+\usepackage{booktabs}	  %\toprule in table
+\usepackage{tabularx}	  %\tabular
+\usepackage{multicol}	  %table col
+\usepackage{multirow}	  %table row
+\usepackage{diagbox}
+
+\newcommand{\hlg}[2][green]{{\sethlcolor{#1}\hl{#2}}}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\sloppy\par
+%****************************************************************
+% ===========Optional packages (uncomment as needed)=============
+%****************************************************************
+\usepackage{wrapfig}
+%\usepackage{makeidx}
+\usepackage{amsbsy}
+\usepackage{latexsym}
+\usepackage{amsthm}
+\usepackage{datatool}
+%\usepackage{glossary}
+\usepackage{glossaries}
+%\makeglossary
+%\makeglossaries
+
+
+%=======================================================
+%
+%-----Layout
+%
+\onehalfspacing
+\hoffset = -1 in
+\voffset= -1 in
+%
+%-----Set margins for a4 paper
+%
+\topmargin = 3.0cm
+\textwidth = 17cm
+\textheight = 22cm
+\oddsidemargin =  2cm
+\evensidemargin = 2cm
+%
+%-----Headers and Footers
+%
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]%
+{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]%
+{\markright{\thesection\ -- #1}}
+\lhead[\fancyplain{}{\thepage}]%
+{\fancyplain{}{\rightmark}}
+\rhead[\fancyplain{}{\leftmark}]%
+{\fancyplain{}{\thepage}}
+\cfoot{}
+%
+%-----No headers on empty pages before new chapter
+%
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+	\hbox{}
+	\thispagestyle{plain}
+	\newpage
+	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother \clearpage{\pagestyle{plain}\cleardoublepage}
+%
+%-----Footnotes
+%
+\renewcommand{\thefootnote}{\fnsymbol{footnote}} % Footnotes are marked with symbols instead of literals
+\setlength{\textfloatsep}{8pt plus 4pt minus 4pt}        % Separation of floats from text
+\renewcommand{\bibnumfmt}[1]{{\scriptsize #1}}
+\setlength{\bibhang}{2em}
+%
+%-----Define Horizontal rule
+%
+\newcommand{\HRule}{\rule{\textwidth}{0.5mm}}
+%
+%-----Define Hyperlink colors
+%
+\definecolor{darkred}{rgb}{0.25,0,0}
+\definecolor{darkgreen}{rgb}{0,0.25,0}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\hypersetup{colorlinks,linkcolor=black,filecolor=black,urlcolor=darkblue,citecolor=black}
+\usepackage{breakurl}
+%****************************************************************
+% ===========Add user definitions as needed=====================
+%****************************************************************
+%\include{definitions}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{principle}{Principle}[chapter]
+\newtheorem{algorithm}{Algorithm}[chapter]
+\newtheorem{law}{Law}
+%\theoremstyle{plain}  % Default
+\theoremstyle{definition}
+%\theoremstyle{remark}
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+
+
+
+
+%%***********Config file orginal backup*********
+%\immediate\write18{makeindex \jobname.nlo -s nomencl.ist -o \jobname.nls}
+%\documentclass[12pt,a4paper,twoside,openright]{report}
+%%
+%%-----Packages
+%%
+%\usepackage[english]{babel}
+%\usepackage{setspace}
+%\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+%\usepackage[intlimits]{amsmath}
+%\usepackage{amsfonts,amssymb}
+%\usepackage{natbib}
+%\usepackage[normalsize,bf]{caption}
+%\usepackage[dvips]{graphicx}
+%%\usepackage{color}
+%%\usepackage{mathdots}
+%%\usepackage{mathtools}
+%%\usepackage{booktabs}
+%%\usepackage{multirow}
+%%\usepackage{ps2pdf}
+%\usepackage{epstopdf}
+%\usepackage[breaklinks,linktocpage]{hyperref}
+%\usepackage{fancyhdr}
+%\usepackage{setspace}
+%\usepackage{subfigure}
+%\usepackage{lettrine}
+%\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+%\sloppy\par
+%%****************************************************************
+%% ===========Optional packages (uncomment as needed)=============
+%%****************************************************************
+%\usepackage{wrapfig}
+%%\usepackage{makeidx}
+%\usepackage{amsbsy}
+%\usepackage{latexsym}
+%\usepackage{amsthm}
+%\usepackage{datatool}
+%\usepackage{nomencl}
+%\makenomenclature
+%\usepackage{glossaries}
+%\makeglossaries
+%\usepackage{ifthen}
+%\usepackage{graphicx}
+%\usepackage{color, soul}
+%%\usepackage{wasysym}
+%%\usepackage{psfrag}
+%%\usepackage{subfig}
+%%\usepackage{pifont}
+%%\usepackage{longtable}
+%%\setlength\LTleft{0pt}
+%%\setlength\LTright{0pt}
+%%=======================================================
+%%
+%%-----Layout
+%%
+%\onehalfspacing
+%\hoffset = -1 in
+%\voffset= -1 in
+%%
+%%-----Set margins for a4 paper
+%%
+%\topmargin = 3.0cm
+%\textwidth = 17cm
+%\textheight = 22cm
+%\oddsidemargin =  2cm
+%\evensidemargin = 2cm
+%%
+%%-----Headers and Footers
+%%
+%\pagestyle{fancyplain}
+%\renewcommand{\chaptermark}[1]%
+%            {\markboth{#1}{}}
+%\renewcommand{\sectionmark}[1]%
+%            {\markright{\thesection\ -- #1}}
+%\lhead[\fancyplain{}{\thepage}]%
+%      {\fancyplain{}{\rightmark}}
+%\rhead[\fancyplain{}{\leftmark}]%
+%     {\fancyplain{}{\thepage}}
+%\cfoot{}
+%%
+%%-----No headers on empty pages before new chapter
+%%
+%\makeatletter
+%\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+%    \hbox{}
+%    \thispagestyle{plain}
+%    \newpage
+%    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%\makeatother \clearpage{\pagestyle{plain}\cleardoublepage}
+%%
+%%-----Footnotes
+%%
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}} % Footnotes are marked with symbols instead of literals
+%\setlength{\textfloatsep}{8pt plus 4pt minus 4pt}        % Separation of floats from text
+%\renewcommand{\bibnumfmt}[1]{{\scriptsize #1}}
+%\setlength{\bibhang}{2em}
+%%
+%%-----Define Horizontal rule
+%%
+%\newcommand{\HRule}{\rule{\textwidth}{0.5mm}}
+%%
+%%-----Define Hyperlink colors
+%%
+%\definecolor{darkred}{rgb}{0.25,0,0}
+%\definecolor{darkgreen}{rgb}{0,0.25,0}
+%\definecolor{darkblue}{rgb}{0,0,0.5}
+%\hypersetup{colorlinks,linkcolor=black,filecolor=black,urlcolor=darkblue,citecolor=black}
+%\usepackage{breakurl}
+%
+%%****************************************************************
+%% ===========Add user definitions as needed=====================
+%%****************************************************************
+%\include{definitions}
+%\newtheorem{theorem}{Theorem}[chapter]
+%\newtheorem{principle}{Principle}[chapter]
+%%\newtheorem{algorithm}{Algorithm}[chapter]
+%\newtheorem{law}{Law}
+%%\theoremstyle{plain}  % Default
+%\theoremstyle{definition}
+%%\theoremstyle{remark}
+%\newtheorem{problem}{Problem}[chapter]
+%\newtheorem{example}{Example}[chapter]
+%\newtheorem{definition}{Definition}[chapter]
+%%=======================================================
+%%%%%%%%%%%%%
+%%-----Begin Document
+%%%%%%%%%%%%%
+%\begin{document}
+%\pagenumbering{roman}
+%%
+%%-----Title page
+%%
+%
+%\begin{titlepage}
+%\noindent {\bf Shanghai Jiao Tong University \\
+%University of Michigan- Shanghai Jiao Tong University Joint Institute}\\
+%\noindent \HRule \vspace{0.0455\textheight}
+%%****************************************************************
+%% ===========Edit the following lines to get the right title============
+%%****************************************************************
+%\begin{center}
+%{\huge \bf Proposal Name}\\[0.016\textheight]
+%{\Large \bf Doctoral Dissertation Proposal} \\[0.032\textheight]
+%\large{by} \\[0.032\textheight] \Large{ \bf Jibin Song}\\
+%%=======================================================
+%\vspace{5cm}
+%\normalsize{A proposal submitted in satisfaction of the \\
+%requirements for the degree of Doctor of Philosophy in \\
+%Control Science and Engineering at Shanghai Jiao Tong University}
+%\HRule \\[0.023\textheight]
+%%****************************************************************
+%%======Edit the following lines to get the right committee members======
+%%****************************************************************
+%\begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+%\textbf{Committee in charge:} &  \textbf{Shanghai}\\
+%\textbf{Professor XXX} &  \textbf{July, 2020}\\
+%\textbf{Professor XXX} & \\
+%\textbf{Professor XXX} & \\
+%\textbf{Professor XXX} & \\
+%\textbf{Professor XXX} & \\
+%\end{tabular*}
+%%=======================================================
+%\end{center}
+%\end{titlepage}
+%
+%%
+%%-----Abstract
+%%
+%\thispagestyle{empty}
+%\cleardoublepage
+%%****************************************************************
+%%===========Your abstract goes in the file Abstract.tex==============
+%%****************************************************************
+%
+%
+%
+%\include{Abstract}
+%\cleardoublepage
+%\include{Glossary}
+%\cleardoublepage
+%%\printglossary
+%%=======================================================
+%%
+%%-----Table of contents
+%%
+%%\clearpage
+%\setcounter{tocdepth}{1}
+%\setcounter{page}{1}
+%\tableofcontents
+%\doublespacing
+%\listoffigures
+%\doublespacing
+%\listoftables
+%\doublespacing
+%
+%
+%
+%
+%
+%\setcounter{page}{1}
+%\pagenumbering{arabic}
+%%****************************************************************
+%%================Include each chapter in a different file===========
+%%======For large theses, chapters should be in different directories=======
+%%=============Add \cleardoublepage between each chapter==========
+%%****************************************************************
+%\include{Chapter1}
+%\cleardoublepage
+%\include{Chapter2}
+%\cleardoublepage
+%%\include{Chapter3}
+%%\cleardoublepage
+%%\include{Chapter4}
+%%\cleardoublepage
+%%\include{Chapter5}
+%%\cleardoublepage
+%\include{Conclusion}
+%\cleardoublepage
+%\include{Acknowledgements}
+%\cleardoublepage
+%\include{Appendix}
+%\cleardoublepage
+%\onehalfspacing
+%\bibliographystyle{chicago}
+%%****************************************************************
+%%=========This is the file that contains your bibliography entries=======
+%%****************************************************************
+%\bibliography{References}
+%%=======================================================
+%\end{document}

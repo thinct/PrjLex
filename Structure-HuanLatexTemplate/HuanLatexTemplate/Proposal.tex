@@ -1,0 +1,94 @@
+%***********DO NOT MODIFY THIS PORTION OF THE HEAD FILE*********
+\def\allfiles{}	  % this is the main tex file.
+\include{Config}  % deifne the using package and the paper layout
+
+\begin{document}
+	\pagenumbering{roman}
+	%
+	%-----Title page
+	%
+	\begin{titlepage}
+		\noindent {\bf Shanghai Jiao Tong University \\
+			University of Michigan-Shanghai Jiao Tong University Joint Institute}\\
+		\noindent \HRule \vspace{0.0455\textheight}
+		%****************************************************************
+		% ===========Edit the following lines to get the right title============
+		%****************************************************************
+		\begin{center}
+			{\huge \bf Here is your title}\\[0.016\textheight]
+			{\Large \bf Doctoral Dissertation Proposal} \\[0.032\textheight]
+			\large{by} \\[0.032\textheight] \Large{ \bf NAME}\\
+			%=======================================================
+			\vspace{5cm}
+			\normalsize{A dissertation proposal submitted in partial satisfaction of the \\
+				requirements for the degree of Doctor of Philosophy in \\
+				Control Science and Engineering at Shanghai Jiao Tong University}
+			\HRule \\[0.023\textheight]
+			%****************************************************************
+			%======Edit the following lines to get the right committee members======
+			%****************************************************************
+			\begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+				\textbf{Committee in charge:} &  \textbf{Shanghai}\\
+				\textbf{Professor XXX} &  \textbf{Apr. 10, 2022}\\
+				\textbf{Professor XXX} & \\
+				\textbf{Professor XXX} & \\
+				\textbf{Professor XXX} & \\
+				\textbf{Professor XXX} & \\
+			\end{tabular*}
+			%=======================================================
+		\end{center}
+	\end{titlepage}
+	%
+	%-----Abstract
+	%
+	\thispagestyle{empty}
+	\cleardoublepage
+	%****************************************************************
+	%===========Your abstract goes in the file Abstract.tex==============
+	%****************************************************************
+	\include{Abstract}
+	%=======================================================
+	%
+	%-----Table of contents
+	%
+	\clearpage
+	\setcounter{tocdepth}{1}
+	\tableofcontents
+	\doublespacing
+	\listoffigures
+	\doublespacing
+	\listoftables
+	\doublespacing
+	
+%	\printglossary
+%	\doublespacing
+	\cleardoublepage
+	\pagenumbering{arabic}
+	%****************************************************************
+	%================Include each chapter in a different file===========
+	%======For large theses, chapters should be in different directories=======
+	%=============Add \cleardoublepage between each chapter==========
+	%****************************************************************
+%	\include{Glossary}
+%	\cleardoublepage
+	\include{Chapter1}
+	\cleardoublepage
+	\include{Chapter2}
+	\cleardoublepage
+	\include{Chapter3}
+	\cleardoublepage
+	\include{Chapter4}
+	\cleardoublepage	
+	%\include{Acknowledgments}
+	%\include{Appendix}
+	%\cleardoublepage
+	\onehalfspacing
+	\bibliographystyle{chicago}
+	%****************************************************************
+	%=========This is the file that contains your bibliography entries=======
+	%****************************************************************
+	\bibliography{HuanBib}
+	%=======================================================
+\end{document}
+
+

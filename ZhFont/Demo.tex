@@ -1,0 +1,13 @@
+% !TeX program = xelatex 
+
+\documentclass[UTF8]{ctexart}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont[ItalicFont=思源宋体,BoldFont=SourceHanSerifSC-Bold]{Source Han Serif SC}
+\renewcommand{\songti}{\CJKfontspec{Source Han Serif SC}}%用命令\songti调用思源宋体
+\newcommand{\KaiTi}{\CJKfontspec{楷体}}%用命令\fzkaiti调用方正楷体简体
+\begin{document}
+	我们对\LaTeX 中\textbf{中文字体}的\textit{设置}进行介绍。\
+	下面是ctex宏包中自带的字体，可以直接使用；相应得，我们在自定义字体的时候，{\KaiTi 不能}和这些字体的命令重名。\
+
+\end{document}

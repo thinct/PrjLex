@@ -19,6 +19,9 @@
 \lstnewenvironment{x86asmcode}[1][]%
 {
 	\lstset{
+		tabsize=4,
+		breaklines=true,
+		breakatwhitespace=true, % 在空格处断行
 		language={[x86masm]Assembler},
 		escapeinside=``,
 		basicstyle=\ttfamily,
@@ -45,15 +48,15 @@
 	\begin{frame}[fragile]
 		\frametitle{EBX 代替当前的函数栈底}
 		\begin{x86asmcode}
-.text:004079C0  push    ebx
-.text:004079C1  mov     ebx, esp
-.text:004079C3  sub     esp, 8
-.text:004079C6  and     esp, -8
-.text:004079C9  add     esp, 4
-.text:004079CC  push    ebp
-.text:004079CD  mov     ebp, [ebx+4]
-.text:004079D0  mov     [esp+4], ebp
-.text:004079D4  mov     ebp, esp\end{x86asmcode}
+004079C0  push  ebx
+004079C1  mov   ebx, esp
+004079C3  sub   esp, 8
+004079C6  and   esp, -8
+004079C9  add   esp, 4
+004079CC  push  ebp
+004079CD  mov   ebp, [ebx+4]
+004079D0  mov   [esp+4], ebp
+004079D4  mov   ebp, esp\end{x86asmcode}
 		\begin{enumerate}
 			\item 当eip在.text:004079C0处，esp所指向的是ret addr. 
 			\item 当eip在.text:004079C1处，ebx 所指向的是esp-4.此时:
@@ -67,14 +70,52 @@
 	
 	\begin{frame}[fragile]{EBX 代替当前的函数栈底}
         \begin{x86asmcode}
-.text:004079C3  sub     esp, 8
-.text:004079C6  and     esp, 0FFFFFFF8h 
-.text:004079C9  add     esp, 4
-.text:004079CC  push    ebp\end{x86asmcode} 
+004079C3  sub   esp, 8
+004079C6  and   esp, 0FFFFFFF8h 
+004079C9  add   esp, 4
+004079CC  push  ebp\end{x86asmcode} 
 		esp实现了向下最近的8的倍数取证。比如12取整就是8，16取整就是16，18取整就是16.因为是针对栈结构地址取整，所以越是往小的方向越安全，因为对于栈结构来讲，越小的地址是没有用过的地址。所以后面的ebp,esp, ebp只能作为局部变量的索引，而对于参数的索引，用ebx比较合适。
 		
 		\textbf {总结:}\\
 		\emph {对于这个函数来讲，并不是按照套路ebp作为局部变量和函数参数的唯一参考.} 
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\frametitle{operator += 传参}
+		\begin{x86asmcode}
+004079FF  mov   eax, [ebx+8]
+00407A02  mov   ecx, [eax+4]
+00407A05  push  ecx
+00407A06  mov   edx, [eax]
+00407A08  push  edx
+00407A09  mov   eax, [ebp-2Ch]
+00407A0C  add   eax, 28h ; '('
+00407A0F  push  eax
+00407A10  call  sf::operator+=(sf::Time &,sf::Time)\end{x86asmcode}
+		\begin{itemize}
+		\item 从0x00407A09到0x00407A0F是第一个参数,已知[ebp-2Ch]为this,所以第一个参数为this->offset28h,并且为sf::Time引用类型.所以\textbf{\textit{sf::Time* this->offset28h}}.
+	\end{itemize}
+	\end{frame}
+	
+	\begin{frame}[fragile]{operator += 传参}
+		\begin{x86asmcode}
+004079FF  mov   eax, [ebx+8]
+00407A02  mov   ecx, [eax+4]
+00407A05  push  ecx
+00407A06  mov   edx, [eax]
+00407A08  push  edx
+00407A09  mov   eax, [ebp-2Ch]
+00407A0C  add   eax, 28h ; '('
+00407A0F  push  eax
+00407A10  call  sf::operator+=(sf::Time &,sf::Time)\end{x86asmcode}
+		\begin{itemize}
+			\item 0x004079FF已推导出为当前函数的第一个参数,而0x00407A02到0x00407A08是连续的内存,从call得知这个连续的内存是sf::Time类型,所以推导出[ebx+8]是sf::Time*类型,即\textit{\textbf{sf::Time* [ebx+8]}}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}[fragile]{operator += 传参}
+		\textit{\textbf{总结:}} \\
+		operator += 第一个参数是传地址,第二个参数是传值,只不过sf::Time的内存是8个字节,所以从起始地址连续压栈2次.本重载函数主要需要掌握的是:\textit{\textbf{不能根据push来判断函数的参数个数}}.
 	\end{frame}
 	
 \end{document}

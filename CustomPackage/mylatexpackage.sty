@@ -1,0 +1,18 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mylatexpackage}[2023/12/09 My Custom LaTeX Package]
+
+% 定义文档类
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+\LoadClass{article}
+
+% 导入自定义样式文件
+\RequirePackage{mystyle}
+
+% 在这里可以添加一些其他宏包或设置
+
+% 在这里可以添加一些自定义命令和环境
+
+% 在这里可以添加一些其他设置
+
+\endinput

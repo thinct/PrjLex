@@ -118,4 +118,67 @@
 		operator += 第一个参数是传地址,第二个参数是传值,只不过sf::Time的内存是8个字节,所以从起始地址连续压栈2次.本重载函数主要需要掌握的是:\textit{\textbf{不能根据push来判断函数的参数个数}}.
 	\end{frame}
 	
+	\begin{frame}[fragile]
+		\frametitle{函数的返回值才是第一个参数}
+		\begin{x86asmcode}
+00407A19 mov    ecx, [ebp-2Ch]
+00407A1C movss  xmm0, ds:__real@3f800000
+00407A24 divss  xmm0, dword ptr [ecx+24h]
+00407A29 push   ecx
+00407A2A movss  dword ptr [esp], xmm0
+00407A2F lea    edx, [ebp-28h]
+00407A32 push   edx
+00407A33 call   ds:__imp_?seconds@sf@@YA?AVTime@1@M@Z ; sf::seconds(float) \end{x86asmcode}
+		0x00407A2F处压栈的是第一个参数,为局部变量(\textbf{暂存临时返回值}),0x00407A29和0x00407A2A压栈第二个参数,其中push只是占位作用,0x00407A2A才是第二个参数的值,也就是计算出来的浮点数.
+	\end{frame}
+	
+	\begin{frame}[fragile]{函数的返回值才是第一个参数}
+		\begin{x86asmcode}
+7AC94C90  movss  xmm0,dword ptr [esp+8]  
+7AC94C96  mulss  xmm0,dword ptr ds:[7AC982B8h]  
+7AC94C9E  call   7AC9600E  
+7AC94CA3  mov    ecx,dword ptr [esp+4]  
+7AC94CA7  mov    dword ptr [ecx],eax  
+7AC94CA9  mov    eax,ecx  
+7AC94CAB  mov    dword ptr [ecx+4],edx  
+7AC94CAE  ret \end{x86asmcode}
+		观察调用的函数,分别从0x7AC94CA3和0x7AC94CA9可知:第一个参数也是该函数的返回值,所以可以推断出:\textbf{函数的返回值才是第一个参数,并且该函数其实只有一个参数},即0x00407A2A处压栈的参数.
+	\end{frame}
+	
+	
+	\begin{frame}[fragile]
+		\frametitle{参数与函数可能隔了几个call}
+		\begin{x86asmcode}
+00407B1A  push    1 ; includesHead
+00407B1C  mov     ecx, [ebp-2Ch]
+00407B1F  add     ecx, 1408h
+00407B25  call    sf::Transformable::getPosition(void)
+00407B2B  push    eax ; location
+00407B2C  mov     ecx, [ebp-2Ch]
+00407B2F  add     ecx, 30h ; this
+00407B32  call    Snake::collidesWith(sf::Vector2<float> const &,bool)\end{x86asmcode}
+		0x00407B1A处压栈参数，在0x00407B25 call之后并没有平栈.通过动态调试得知\textbf{0x00407B25前后esp没有变化,说明该call是没有参数的},跟进0x00407B25 call直接将以地址给eax了,直接说明了\textbf{0x00407B1A push不是0x00407B25 call使用的}.	
+	\end{frame}
+	
+		\begin{frame}[fragile]{参数与函数可能隔了几个call}
+		\begin{x86asmcode}
+00407B1A  push    1 ; includesHead
+00407B1C  mov     ecx, [ebp-2Ch]
+00407B1F  add     ecx, 1408h
+00407B25  call    sf::Transformable::getPosition(void)
+00407B2B  push    eax ; location
+00407B2C  mov     ecx, [ebp-2Ch]
+00407B2F  add     ecx, 30h ; this
+00407B32  call    Snake::collidesWith(sf::Vector2<float> const &,bool)\end{x86asmcode}
+		分析0x00407B32 call,得出0x00407B2B是第一个参数,上面的0x00407B1A是第二个参数.	是因为动态调试发现经过0x00407B32 call前后,esp变化为8,所以直接找最近的栈的两个push即可.
+	\end{frame}
+	
+	\begin{frame}[fragile]{参数与函数可能隔了几个call}
+		\textbf{总结:}
+		\begin{enumerate}
+			\item 通过动态调试观察esp变化来判断参数的个数
+			\item 经过编译器的优化,函数的push可能在其他call之前进行压栈的
+		\end{enumerate}
+	\end{frame}
+	
 \end{document}

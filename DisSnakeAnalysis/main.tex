@@ -40,9 +40,8 @@
 	\maketitle 
 	
 	
-	\section{SnakeGame::update}
-	
-	\subsection{函数前置初始化}
+	\section{SnakeGame}
+	\subsection{SnakeGame::update}
 	
 	% Using typewriter font: \ttfamily inside \lstset
 	\begin{frame}[fragile]
@@ -179,6 +178,31 @@
 			\item 通过动态调试观察esp变化来判断参数的个数
 			\item 经过编译器的优化,函数的push可能在其他call之前进行压栈的
 		\end{enumerate}
+		\textbf{思考:} \\ 
+		在函数被调用前后观察esp的变化,是不是就能确定函数的调用约定了呢?
+	\end{frame}
+	
+	
+	
+	\section{SnakeGameApp}
+	\subsection{SnakeGameApp::updateCurrentState}
+	
+	\begin{frame}[fragile]
+		\frametitle{虚函数简单识别}
+		\begin{x86asmcode}
+0040906B  mov   edx,dword ptr [eax+4]  
+0040906E  call  edx\end{x86asmcode}
+		0040906E call调用目标是寄存器,说明edx存放的是函数指针,从0040906B处edx通过eax+4解引用得到的。初步确认edx存放的是虚函数指针,而eax是虚表的首地址.eax进一步在内存中确认:\\
+		0x0040B9AC  f0 78 40 00  \\
+		0x0040B9B0  c0 79 40 00  \\
+		0x0040B9B4  d0 7c 40 00  \\
+		0x0040B9B8  40 74 40 00  \\
+		0x0040B9BC  60 78 40 00  \\
+		从上面的存放内容,基本就可以确认是虚表内容了.如果某个对象存放了这个eax,那么那个引用地址就是虚表的所属的对象了。
+	\end{frame}
+	
+	\begin{frame}[fragile]{虚函数简单识别}
+	    \textbf{总结:} \\ call 后面的寄存器是由一个地址加偏移的结果解引用得到的,那么就大胆的猜测它就是虚函数吧!	
 	\end{frame}
 	
 \end{document}

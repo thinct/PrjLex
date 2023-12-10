@@ -5,6 +5,7 @@
 \setbeamercovered{transparent}
 \usepackage{listings}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{ThinctPPT}
 
 % 支持中文的设置
 \usepackage{xeCJK}
@@ -16,36 +17,18 @@
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
 \usepackage{graphicx,pstricks,listings,stackengine}
 
-\lstnewenvironment{x86asmcode}[1][]%
-{
-	\lstset{
-		tabsize=4,
-		breaklines=true,
-		breakatwhitespace=true, % 在空格处断行
-		language={[x86masm]Assembler},
-		escapeinside=``,
-		basicstyle=\ttfamily,
-		keywordstyle=\bfseries\color{NavyBlue},
-		commentstyle=\itshape\color{black!50!white},
-		literate={\ \ }{{\ \ \ \ }}4,
-		#1
-	}
-}%
-{}
-
 \title{\textbf{贪吃蛇}\\反汇编代码分析报告}
 \date{\today}
-\author{THINCT}
+\author{\includegraphics[width=0.26\linewidth]{ShowMe}\\THINCT}
 \begin{document}
-	\maketitle 
-	
+	\maketitle
 	
 	\section{SnakeGame}
 	\subsection{SnakeGame::update}
 	
 	% Using typewriter font: \ttfamily inside \lstset
 	\begin{frame}[fragile]
-		\frametitle{EBX 代替当前的函数栈底}
+		\LogoFrametitle{EBX 代替当前的函数栈底}
 		\begin{x86asmcode}
 004079C0  push  ebx
 004079C1  mov   ebx, esp
@@ -80,7 +63,7 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]
-		\frametitle{operator += 传参}
+		\LogoFrametitle{operator += 传参}
 		\begin{x86asmcode}
 004079FF  mov   eax, [ebx+8]
 00407A02  mov   ecx, [eax+4]
@@ -118,7 +101,7 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]
-		\frametitle{函数的返回值才是第一个参数}
+		\LogoFrametitle{函数的返回值才是第一个参数}
 		\begin{x86asmcode}
 00407A19 mov    ecx, [ebp-2Ch]
 00407A1C movss  xmm0, ds:__real@3f800000
@@ -146,7 +129,7 @@
 	
 	
 	\begin{frame}[fragile]
-		\frametitle{参数与函数可能隔了几个call}
+		\LogoFrametitle{参数与函数可能隔了几个call}
 		\begin{x86asmcode}
 00407B1A  push    1 ; includesHead
 00407B1C  mov     ecx, [ebp-2Ch]
@@ -188,7 +171,7 @@
 	\subsection{SnakeGameApp::updateCurrentState}
 	
 	\begin{frame}[fragile]
-		\frametitle{虚函数简单识别}
+		\LogoFrametitle{虚函数简单识别}
 		\begin{x86asmcode}
 0040906B  mov   edx,dword ptr [eax+4]  
 0040906E  call  edx\end{x86asmcode}

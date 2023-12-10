@@ -1,0 +1,45 @@
+\mode<presentation>
+
+\newif\ifbeamer@secheader
+\beamer@secheaderfalse
+
+%\DeclareOptionBeamer{secheader}{\beamer@secheadertrue}
+\ProcessOptionsBeamer
+
+\AtBeginSection[]{
+	\begin{frame}
+		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+	\end{frame}
+}
+\AtBeginSubsection[]{
+	\begin{frame}
+		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+	\end{frame}
+}
+
+
+\lstnewenvironment{x86asmcode}[1][]%
+{
+	\lstset{
+		tabsize=4,
+		breaklines=true,
+		breakatwhitespace=true, % 在空格处断行
+		language={[x86masm]Assembler},
+		escapeinside=``,
+		basicstyle=\ttfamily,
+		keywordstyle=\bfseries\color{NavyBlue},
+		commentstyle=\itshape\color{black!50!white},
+		literate={\ \ }{{\ \ \ \ }}4,
+		#1
+	}
+}%
+{}
+
+% 定义新命令 \customframetitle
+\newcommand{\LogoFrametitle}[1]{%
+	\frametitle{{\includegraphics[height=1em]{logoMe}} #1}%
+}
+
+
+\mode
+<all>

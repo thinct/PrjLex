@@ -1,0 +1,10 @@
+digraph G {
+  rankdir=LR; // 从左到右布局
+  graph [ranksep=1]; // 控制节点的垂直距离
+  node [shape=plaintext]; // 设置节点形状为纯文本，即无边框
+  A -> B [dir=none] // 从 A 到 B 的连线没有箭头
+  B -> {C t D} [dir=none] // 从 B 到 C 和 D 的连线没有箭头
+  C -> E [dir=none] // 从 C 到 E 的连线没有箭头
+  D -> F [dir=none] // 从 D 到 E 的连线没有箭头
+  D -> G [dir=none] // 从 D 到 E 的连线没有箭头
+}

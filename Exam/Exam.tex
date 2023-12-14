@@ -1,0 +1,63 @@
+% !TeX program = xelatex 
+
+\documentclass[12pt]{exam}
+\usepackage{lipsum}
+
+% 支持中文的设置
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont[ItalicFont=思源宋体,BoldFont=SourceHanSerifSC-Bold]{Source Han Serif SC}
+\newcommand{\KaiTi}{\CJKfontspec{楷体}}%用命令\fzkaiti调用方正楷体简体
+
+\begin{document}
+	\large
+	\linespread{1.6} \selectfont
+	
+	\begin{center}
+		\textbf{\large 技术面试题}
+	\end{center}
+	
+	\vspace{\baselinestretch}
+	
+	\begin{questions}
+	
+	\question
+	\textbf{虚函数：}
+	\begin{parts}
+		\part 你平时是如何使用虚函数的?
+		\part 使用虚函数需要注意点什么?
+	\end{parts}
+	
+	\question
+	\textbf{内存泄露：}
+	\begin{parts}
+		\part 内存泄露的处理方式有哪些?
+		\part 如何观察和解决内存泄露?
+	\end{parts}
+	
+	
+	
+	\question
+	\textbf{野指针：}
+	\begin{parts}
+		\part 什么是野指针？
+		\part 一般什么时候会出现野指针?
+		\part 如何避免出现野指针?
+	\end{parts}
+	
+	\question
+	\textbf{多线程：}
+	\begin{parts}
+		\part 什么是线程安全？列举几种保证线程安全的策略。
+		\part 解释一下互斥锁和条件变量在多线程编程中的作用。
+	\end{parts}
+	
+	\question
+	\textbf{Qt相关：}
+	\begin{parts}
+		\part 什么是 Qt 的信号和槽机制？它在多线程环境下有哪些注意事项？
+		\part 如何在 Qt 中进行跨平台的编译和部署？
+	\end{parts}
+	\end{questions}
+
+\end{document}

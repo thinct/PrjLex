@@ -165,7 +165,153 @@
 		在函数被调用前后观察esp的变化,是不是就能确定函数的调用约定了呢?
 	\end{frame}
 	
+	\subsection{SnakeGame::update推测this的成员类型}
+	\begin{frame}[fragile]
+		\LogoFrametitle{[ebp-2Ch]存放this,加法偏移识别this的成员变量}
+		\tiny
+		\linespread{1.2} \selectfont
+\begin{x86asmcode}
+00407A16  add     esp, 0Ch
+00407A19  mov     ecx, [ebp-2Ch]
+00407A1C  movss   xmm0, ds:__real@3f800000
+00407A24  divss   xmm0, dword ptr [ecx+24h] ; float : this->offset24h
+00407A29  push    ecx
+00407A2A  movss   dword ptr [esp], xmm0
+00407A2F  lea     edx, [ebp-28h]
+00407A32  push    edx
+00407A33  call    ds:__imp_?seconds@sf@@YA?AVTime@1@M@Z ; sf::seconds(float)
+
+00407A44  mov     edx, [ebp-2Ch]
+00407A47  mov     eax, [edx+2Ch] 
+00407A4A  push    eax
+00407A4B  mov     ecx, [edx+28h] ; sf::Time : this->offset28h
+00407A4E  push    ecx
+00407A4F  call    ds:__imp_??Psf@@YA_NVTime@0@0@Z ; sf::operator>=(sf::Time,sf::Time)
+00407A55  add     esp, 10h
+
+00407A6A  push    ecx
+00407A6B  mov     edx, [ebp-2Ch]
+00407A6E  add     edx, 28h ; sf::Time : this->offset28h
+00407A71  push    edx
+00407A72  call    ds:__imp_??Zsf@@YAAAVTime@0@AAV10@V10@@Z ; sf::operator-=(sf::Time &,sf::Time)
+00407A78  add     esp, 0Ch\end{x86asmcode}
+	\end{frame}
 	
+	
+	\begin{frame}[fragile]{[ebp-2Ch]存放this,加法偏移识别this的成员变量}
+		\tiny
+		\linespread{0.9} \selectfont
+		\begin{x86asmcode}
+00407A90  mov     ecx, [ebp-2Ch]
+00407A93  add     ecx, 13F0h      ; std::deque<Direction> : this->offset13F0h
+00407A99  call    ?front@?$deque@VDirection@@V?$allocator@VDirection@@@std@@@std@@QAEAAVDirection@@XZ ; std::deque<Direction>::front(void)
+
+00407ACC  push    eax             ; right
+00407ACD  mov     ecx, [ebp-2Ch]
+00407AD0  add     ecx, 1408h
+00407AD6  call    ds:__imp_?getPosition@Transformable@sf@@QBEABV?$Vector2@M@2@XZ ; sf::Transformable::getPosition(void)
+
+00407AFE  push    edx             ; result
+00407AFF  mov     ecx, [ebp-2Ch]
+00407B02  add     ecx, 4Ch ; BackgroundGrid : this->offset4Ch
+00407B05  call    ?generateRandomPosition@BackgroundGrid@@QAE?AV?$Vector2@M@sf@@XZ ; BackgroundGrid::generateRandomPosition(void)
+
+00407B0B  mov     ecx, [ebp-2Ch]
+00407B0E  add     ecx, 1408h ; sf::Transformable : this->offset1408h
+00407B14  call    ds:__imp_?setPosition@Transformable@sf@@QAEXABV?$Vector2@M@2@@Z ; sf::Transformable::setPosition(sf::Vector2<float> const &)
+
+00407C00  mov     ecx, [ebp-2Ch]
+00407C03  add     ecx, 30h ; Snake : this->offset30h
+00407C06  call    ?setColor@Snake@@QAEXVColor@sf@@@Z ; Snake::setColor(sf::Color)
+
+00407C58  mov     ecx, [ebp-2Ch]
+00407C5B  add     ecx, 30h  ; Snake : this->offset30h
+00407C5E  call    ?length@Snake@@QBEIXZ ; Snake::length(void)\end{x86asmcode}
+	\end{frame}
+	
+	\begin{frame}[fragile]{[ebp-2Ch]存放this,加法偏移识别this的成员变量}
+		\normalsize
+		\linespread{5} \selectfont
+		\textbf{总结:} \\ 
+		在同一个函数中，找到this变量,将所有基于该变量偏移的片段截取出来，结合已知的调用函数原型推导变量的含义和类型.
+		\linespread{1} \selectfont
+	\end{frame}
+	
+	
+	\subsection{SnakeGame::SnakeGame推测this的成员类型}
+	\begin{frame}[fragile]
+		\LogoFrametitle{[ebp-14h]存放this,加法偏移识别this的成员变量}
+		\tiny
+		\linespread{0.5} \selectfont
+		\begin{x86asmcode}
+004074AC mov     [ebp-14h], ecx
+004074C6 mov     edx, [ebp-14h]
+004074C9 mov     dword ptr [edx], offset ??_7SnakeGame@@6B@
+
+004074D1 mov     ecx, [ebp-14h]
+004074D4 add     ecx, 10h        ; this
+004074D7 call    ??0Direction@@QAE@H@Z ; Direction::Direction(int)
+
+004074ED mov     ecx, [ebp-14h]
+004074F0 add     ecx, 14h
+004074F3 call    ds:__imp_??0Color@sf@@QAE@EEEE@Z ; sf::Color::Color(uchar,uchar,uchar,uchar)
+
+0040750D mov     ecx, [ebp-14h]
+00407510 add     ecx, 18h
+00407513 call    ds:__imp_??0Color@sf@@QAE@EEEE@Z ; sf::Color::Color(uchar,uchar,uchar,uchar)
+
+00407524 mov     ecx, [ebp-14h]
+00407527 add     ecx, 1Ch
+0040752A call    ds:__imp_??0Color@sf@@QAE@EEEE@Z ; sf::Color::Color(uchar,uchar,uchar,uchar)
+
+0040753B mov     ecx, [ebp-14h]
+0040753E add     ecx, 20h ; ' '
+00407541 call    ds:__imp_??0Color@sf@@QAE@EEEE@Z ; sf::Color::Color(uchar,uchar,uchar,uchar)
+
+00407547 mov     eax, [ebp-14h]
+0040754A movss   xmm0, ds:__real@41200000
+00407552 movss   dword ptr [eax+24h], xmm0\end{x86asmcode}
+    \end{frame}
+	
+	\begin{frame}[fragile]{[ebp-14h]存放this,加法偏移识别this的成员变量}
+		\tiny
+		\linespread{0.5} \selectfont
+		\begin{x86asmcode}
+00407557 mov     ecx, [ebp-14h]
+0040755A add     ecx, 28h ; '('
+0040755D call    ds:__imp_??0Time@sf@@QAE@XZ ; sf::Time::Time(void)
+
+0040778D mov     ecx, [ebp-14h]
+00407790 add     ecx, 13F0h      ; this
+00407796 call    ??0?$deque@VDirection@@V?$allocator@VDirection@@@std@@@std@@QAE@XZ ; std::deque<Direction>::deque<Direction>(void)
+
+004077E0 mov     ecx, [ebp-14h]
+004077E3 add     ecx, 1404h
+004077E9 call    ds:__imp_?setFillColor@Shape@sf@@QAEXABVColor@2@@Z ; sf::Shape::setFillColor(sf::Color const &)
+004077EF
+
+004077F6 mov     ecx, [ebp-14h]
+004077F9 add     ecx, 4Ch ; 'L'  ; this
+004077FC call    ?generateRandomPosition@BackgroundGrid@@QAE?AV?$Vector2@M@sf@@XZ ; BackgroundGrid::generateRandomPosition(void)
+
+00407811 push    1
+00407813 mov     ecx, [ebp-14h]
+00407816 add     ecx, 1408h
+0040781C call    ds:__imp_?getPosition@Transformable@sf@@QBEABV?$Vector2@M@2@XZ ; sf::Transformable::getPosition(void)
+
+00407822 push    eax             ; location
+00407823 mov     ecx, [ebp-14h]
+00407826 add     ecx, 30h ; '0'  ; this
+00407829 call    ?collidesWith@Snake@@QBE_NABV?$Vector2@M@sf@@_N@Z ; Snake::collidesWith(sf::Vector2<float> const &,bool)\end{x86asmcode}
+	\end{frame}
+	
+	
+	\begin{frame}[fragile]{[ebp-14h]存放this,加法偏移识别this的成员变量}
+		\textbf{总结:} \\ 
+		\linespread{1.6} \selectfont
+		一般构造函数会对所有成员变量进行初始化的,所以从构造函数来分析this的成员变量是一个不错的选择.
+	\end{frame}
+	%---------------------------------------------------------------------------------------
 	
 	\section{SnakeGameApp}
 	\subsection{SnakeGameApp::updateCurrentState}

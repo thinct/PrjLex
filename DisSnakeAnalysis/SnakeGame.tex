@@ -176,8 +176,8 @@
 00407A1C  movss   xmm0, ds:__real@3f800000
 00407A24  divss   xmm0, dword ptr [ecx+24h] ; float : this->offset24h
 00407A29  push    ecx
-00407A2A  movss   dword ptr [esp], xmm0
-00407A2F  lea     edx, [ebp-28h]
+00407A2A  movss   dword ptr [esp], xmm0 ; esp->ecx  [esp]=ds:__real@3f800000
+00407A2F  lea     edx, [ebp-28h] ; sf::seconds的返回值存放的临时变量
 00407A32  push    edx
 00407A33  call    ds:__imp_?seconds@sf@@YA?AVTime@1@M@Z ; sf::seconds(float)
 
@@ -310,6 +310,67 @@
 		\textbf{总结:} \\ 
 		\linespread{1.6} \selectfont
 		一般构造函数会对所有成员变量进行初始化的,所以从构造函数来分析this的成员变量是一个不错的选择.
+	\end{frame}
+	
+	\begin{frame}[fragile]
+	\LogoFrametitle{上面this偏移分析的结构梳理}
+		\footnotesize
+		\begin{table}[htbp] % 自动找最合适的位置放置该表格
+			\centering % 整个表格居中
+			\caption{SnakeGame Parse}
+			\begin{tabular}{p{1cm}p{5cm}}
+				\toprule
+				\multicolumn{2}{l}{\textbf{Class members by offset}}     \\
+					\emph{+10h  } & m\_Direction\_1                      \\
+					\emph{+14h  } & m\_sf\_\_Time\_1                     \\
+					\emph{+18h  } & m\_sf\_\_Color\_1                    \\
+					\emph{+1Ch  } & m\_sf\_\_Color\_2                    \\
+					\emph{+20h  } & m\_sf\_\_Color\_3                    \\
+					\emph{+24h  } & m\_float\_second\_1                  \\
+					\emph{+28h  } & m\_sf\_\_Time\_2                     \\
+					\emph{+30h  } & m\_object\_Snake\_1                  \\
+					\emph{+4Ch  } & m\_BackgroundGrid                    \\
+					\emph{+13F0h} & m\_std\_\_deque\_Direction\_1        \\
+					\emph{+1404h} & m\_sf\_\_Shape                       \\
+					\emph{+1408h} & m\_sf\_\_Transformable\_position     \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+	\end{frame}
+	
+	
+	\subsection{SnakeGame CE动态监视this的成员类型}
+	\begin{frame}[fragile]
+		\LogoFrametitle{CE 平坦式内存}
+		\begin{figure}
+			\centering % 将整个 figure 居中
+			\includegraphics[width=\linewidth]{CE_MEM_FLAT.png}
+			\caption{平坦式内存}
+			\label{fig:CE_MEM_FLAT}
+		\end{figure}
+	\end{frame}
+	
+	
+	\begin{frame}[fragile]
+		\LogoFrametitle{CE 层级内存}
+		\begin{figure}
+			\centering % 将整个 figure 居中
+			\includegraphics[width=0.85\linewidth]{CE_MEM_TREE.png}
+			\caption{层级内存}
+			\label{fig:CE_MEM_TREE}
+		\end{figure}
+	\end{frame}
+		
+	\begin{frame}[fragile]
+		\LogoFrametitle{CE 监视内存}
+		\normalsize
+		\textbf{总结:} \\ 
+		\begin{enumerate}
+			\item 通过平坦式内存全局观察所有的内存单元变化.比如SnakeGame的内存偏移就说明是线性存储了数据.
+			\item 通过对象字段存储的地址继续进一步观察，不断得到下一级数据,从而得到纵向的存储数据.
+		\end{enumerate}
+		纵横内存分析，即可描绘出完整的嵌套式数据结构.
+		\linespread{1} \selectfont
 	\end{frame}
 	%---------------------------------------------------------------------------------------
 	

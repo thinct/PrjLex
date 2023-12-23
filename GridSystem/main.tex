@@ -12,6 +12,10 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{grid-system}
+\usepackage{graphicx}
+\usepackage{multirow} % Required for multirows
+\usepackage{bbding}
+\usepackage{wrapfig}
 
 \usepackage{xcolor}
 \definecolor{linkcolor}{rgb}{0, 0, 0.93}
@@ -164,4 +168,94 @@ urlcolor=linkcolor
 		\end{cell}
 	\end{row}
 	
+	\clearpage
+	
+	\section{minipage}
+	\begin{figure}[!h]
+		\vspace{0.3cm}
+		\begin{center}
+			\begin{minipage}{0.49\linewidth}
+				\centerline{\includegraphics[width=1\linewidth]{ShowMe.jpg}}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.49\linewidth}
+				\centerline{\includegraphics[width=1\linewidth]{ShowMe}}
+			\end{minipage}
+			\vfill
+			\vspace{0.2cm}
+			\begin{minipage}{0.49\linewidth}
+				\small
+				\centerline{(aaaaa)}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.49\linewidth}
+				\small
+				\centerline{(bbbbb)}
+			\end{minipage}
+		\end{center}
+		\caption{t-SNE visualization of the distribution of (a) representations and (b) maps. }
+		\vspace{0.3cm}
+		\label{fig_tsne}
+	\end{figure}
+	\begin{minipage}[c]{0.5\textwidth}
+	\centering
+	\label{tab:ablation2}
+	\setlength{\tabcolsep}{0.5 mm}
+	\scalebox{0.9}{
+		\begin{tabular}{c|cc|cc|cc}
+			\hline
+			\multirow{2}*{p}  & \multicolumn{2}{c|}{Stage I } &    \multicolumn{2}{c|}{Stage II}  \\
+			&PSNR   &   LPIPS   &PSNR   &   LPIPS   &   $\Delta$PSNR    &   $\Delta$LPIPS
+			\\
+			\hline
+			8   &  35.00    &	0.0000	&    20.00	& 0.0000 &-10.00 &   0.0000  \\
+			16   &  35.00    &	0.0000	&    20.00	& 0.0000 &-10.00 &   0.0000  \\
+			32   &  35.00    &	0.0000	&    20.00	& 0.0000 &-10.00 &   0.0000  \\
+			64   &  35.00    &	0.0000	&    20.00	& 0.0000 &-10.00 &   0.0000  \\
+			\hline
+		\end{tabular}
+	}
+	\captionof{table}{Ablation studies 1.}
+	\end{minipage}
+	\begin{minipage}[c]{0.5\textwidth}
+		\centering
+		\label{tab:ablation}
+		\setlength{\tabcolsep}{0.5mm}
+		\vspace{-1mm}
+		\scalebox{0.85}{
+			\begin{tabular}{lcc|cccc}
+				\hline
+				MMM  &    PPP &   AAA &  PSNR$\uparrow$    &   LPIPS$\downarrow$ & VOI-S$\downarrow$    &   VOI-M$\downarrow$
+				\\
+				\hline
+				\XSolidBrush   & \XSolidBrush & \XSolidBrush& 23.00  & 0.5000  &   4.0000    &   2.0000 \\
+				\XSolidBrush   &  \Checkmark  & \Checkmark & 23.00  & 0.5000  &   4.0000    &   2.0000 \\
+				\Checkmark & \XSolidBrush  & \Checkmark    & 23.00  & 0.5000  &   4.0000    &   2.0000 \\
+				\Checkmark  & \Checkmark   & \XSolidBrush  & 23.00  & 0.5000  &   4.0000    &   2.0000 \\
+				\Checkmark  & \Checkmark   & \Checkmark   & 23.00  & 0.5000  &   4.0000    &   2.0000 \\
+				\hline
+			\end{tabular}
+		}
+		\captionof{table}{Ablation studies 2.}
+	\end{minipage}
+	
+	\clearpage
+	
+	\section{float layout}
+	\begin{minipage}[c]{0.7\textwidth}
+		  Here is a bunch of text that we can put around an image.  The image will be shown on the left
+		side of the paper, but our text can go all around it.  There will be spacing above and below the
+		image where text can go.  This spacing can actually be controlled by using a negative value with
+		\texttt{vskip}, but we will not be going into that here.  It will be just our little secret: you,
+		me, and the compiler.  I hope this is enough dummy text for this example.  If not, I will have to
+		type up some more.
+		\begin{wrapfigure}{l}{0.80\textwidth}
+			\centering
+			\includegraphics[width=0.78\textwidth]{lion.png}
+		\end{wrapfigure}
+		Oops, I just tried compiling it.  Apparently I need to include a bit more.  I could go on a bit
+		and tell you more secrets of image placement.  Did you know that you can use the \texttt{center}
+		environment around the \texttt{includeimage} to make things look even prettier?  It's true.  The
+		control which \LaTeX provides with it is nice.
+	\end{minipage}
 \end{document}

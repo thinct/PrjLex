@@ -1,0 +1,118 @@
+% !TeX program = xelatex 
+
+\PassOptionsToPackage{prologue, dvipsnames}{xcolor}
+\documentclass[AutoFakeBold,AutoFakeSlant]{beamer}
+\usetheme{metropolis}           % Use metropolis theme
+\setbeamercovered{transparent}
+\usepackage{listings}
+\usepackage{grid-system}
+\usepackage{ThinctPPT}
+\usepackage[font=normalsize,labelfont=sf,textfont=sf]{subcaption} % Use only subcaption, not subfig
+
+% 支持中文的设置
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont[ItalicFont=思源宋体,BoldFont=SourceHanSerifSC-Bold]{Source Han Serif SC}
+\newcommand{\KaiTi}{\CJKfontspec{楷体}}%用命令\fzkaiti调用方正楷体简体
+
+% other packages
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{wrapfig}
+\usepackage[english]{babel}
+\usepackage[font=normalsize,labelfont=sf,textfont=sf]{subcaption}
+
+\title{\textbf{禅道}\\任务执行}
+\date{\today}
+\author{\includegraphics[width=0.26\linewidth]{LaserMaker}\\软件部~/~王升平}
+\begin{document}
+	\maketitle
+	
+	\section{执行任务}
+	\subsection{每日工作之前先建任务}
+	
+	\begin{frame}[fragile]
+		\LogoFrametitle{怎样建任务}
+		\begin{enumerate}
+			\item 修改BUG。建任务,可以与BUG同名。
+			\item 写需求。建任务，可以与需求同名。
+			\item 写文档。建任务，与具体事务同名。
+			\item 测试。具体事务相关。白盒测试需任务细化。
+		\end{enumerate}
+	\end{frame}
+	
+	\subsection{任务必须遵循的要点}
+	\begin{frame}[fragile]
+		\LogoFrametitle{必须要做到的:}
+		\begin{center}
+			禅道的执行状态，必须要做到每天有{\large \textbf{"执行中"}}
+		\end{center} 
+	\end{frame}
+	
+	\begin{frame}[fragile]
+		\LogoFrametitle{时间计划}
+		\begin{figure}
+			\large
+			\begin{flushleft}
+				1. 开始的估算总工时按照经验填写
+			\end{flushleft}
+			
+			\vspace{1cm}
+			
+			\begin{minipage}[l]{\linewidth}
+				2. 消耗工时按照实际方式填写
+				\footnotesize
+				\begin{enumerate}
+					\item 严重超过时间估算需要与魁哥或者泽贤沟通或者指派给王工
+					\item 有明确截止日期的
+					\begin{enumerate}
+						\item 截止日期前两天(至少提前一天)需反馈
+						\item 连续两天没有连续进展需反馈
+					\end{enumerate}	
+				\end{enumerate}
+			\end{minipage}
+			
+			\vspace{0.5cm}
+			
+			\begin{flushleft}
+				3. 理论上,一天消耗的工时不能小于4小时
+			\end{flushleft}
+		\end{figure}
+	\end{frame}
+	
+	
+	\begin{frame}[fragile]
+		\LogoFrametitle{反馈}
+		\begin{figure}
+			\large
+			\begin{minipage}[l]{\linewidth}
+				1. 提前做好问题的矛盾点描述
+				\footnotesize
+				\begin{enumerate}
+					\item 问题简单化
+					\item 描述有条理
+					\item 如果能提供简单Demo复现问题更好
+				\end{enumerate}
+			\end{minipage}
+			
+			\vspace{0.5cm}
+			
+			\begin{minipage}[l]{\linewidth}
+				2. 描述解决问题的思路
+				\footnotesize
+				\begin{enumerate}
+					\item 已经进行过的思路探索 123
+					\item 将要尝试的思路 123
+				\end{enumerate}
+			\end{minipage}
+		\end{figure}
+	\end{frame}
+	
+	\subsection{其他}
+	\begin{frame}[fragile]
+		\LogoFrametitle{其他}
+		\begin{center}
+			后续考虑取消腾讯文档的日志编写，\\改用禅道作为唯一工作日志渠道。
+		\end{center} 
+	\end{frame}
+\end{document}

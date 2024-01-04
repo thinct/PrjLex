@@ -20,6 +20,16 @@
 \usepackage{geometry}
 \geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
 
+\usepackage{hyperref}
+\hypersetup
+{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=blue,
+	urlcolor=blue,
+	citecolor=cyan,
+}
+
 \lstnewenvironment{x86asmcode}[1][]%
 {
 	\lstset{
@@ -58,20 +68,39 @@
 }%
 {}
 
+% 定义自定义命令来创建隐藏网址的超链接
+\newcommand{\hiddenlink}[2]{%
+	\href{#1}{\texttt{#2}}%
+}
+
 \begin{document}
 	
-	\vspace{1cm}
+	\vspace{3cm}
 	\begin{center}
 		\Huge 
 		\textbf{ThinctDbg}用法说明书\\
 		{\Large \textit{\underline{V1.0.0}}}
 		
 	\end{center}
-	\vspace{2cm}
+	\vspace{1cm}
 	
 	\leftline
 	\bigskip
 	\begin{flushleft}
+		\begin{Large}
+			Windows 环境条件
+		\end{Large}
+		\large 
+		\linespread{1.2} \selectfont
+		\begin{quote}
+			1. python3\\
+			2. \hiddenlink {https://github.com/lyshark/LyScript} {LyScript32环境安装}.
+			\begin{quote}安装之后，需要将其中的\hiddenlink{https://github.com/thinct/ThinctDbg/blob/main/\_\_init\_\_.py}{\_\_init\_\_.py}文件进行更新,主要是为了提升执行速度。
+			\end{quote}
+		\end{quote}
+		
+		\vspace{1cm}
+		
 		\begin{LARGE}
 			一、 \textbf{RuntimeTrace} 运行时反汇编代码跟踪
 		\end{LARGE}
@@ -90,7 +119,7 @@
 			记录会写入到AddrFlowEasy.asm文件中。在执行过程中,同样会\textbf{记录遇到的内存访问}。
 			\end{quotation}
 		
-			\vspace{1.2cm}
+			\newpage
 			
 			\large 
 			2. 脚本参数用法 \\
@@ -113,7 +142,8 @@
 					%\end{tcolorbox}
 				\end{quote}
 			
-			\clearpage
+			\bigskip
+			\bigskip
 			
 			\textcolor{blue}{ \textbf{ \Large
 		    .$\backslash$RuntimeTrace.py --S 0x01071AD0 --E 0x01071BC1 --StartInModules 0x01060000 --EndInModules 0x01076FF2 }} \\
@@ -125,8 +155,7 @@
 			    %\end{tcolorbox}
 			\end{quote}
 		    
-			\bigskip
-			\bigskip
+			\clearpage
 		    
 		    \textcolor{blue}{ \textbf{ \Large
 			.$\backslash$RuntimeTrace.py --S 0x004011A0 --E 0x004012ED --StartInModules 0x00400000 --EndInModules 0x00402FFF --noEnablePrtESP }} \\
@@ -139,7 +168,7 @@
 				%\end{tcolorbox}
 			\end{quote}
 			
-			\clearpage			
+			\bigskip			
 			
 			\textcolor{blue}{ \textbf{ \Large
 			.$\backslash$RuntimeTrace.py --S 0x004011A0 --E 0x004012ED --StartInModules 0x00400000 --EndInModules 0x00402FFF --noEnablePrtESP --ModifyCallAddr }} \\
@@ -155,10 +184,11 @@
 			
 			\end{quote}
 		
-			\newpage
+			\newpage	
 		
 			\begin{quote}
-				下面展示的是记录文件AddrFlowEasy.asm的部分内容:
+				3. 下面展示的是记录文件AddrFlowEasy.asm的部分内容:
+				\begin{quote}
 				\begin{x86asmcode}
 ;esp : 0x0019FD1C
 ;ebp : 0x0019FE0C
@@ -186,6 +216,7 @@
 /*0x004119E2*/    movzx edx, byte ptr ds:[ecx]
 ;[ecx]=[0x0041C00D]=0x00000101
 				\end{x86asmcode}
+				\end{quote}
 			\end{quote}
 		\end{quote}
 	\end{flushleft}

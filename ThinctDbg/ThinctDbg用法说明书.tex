@@ -1,0 +1,265 @@
+% !TeX program = xelatex 
+
+\PassOptionsToPackage{prologue, dvipsnames}{xcolor}
+\documentclass[AutoFakeBold,AutoFakeSlant]{article}
+\usepackage{listings}
+
+% 支持中文的设置
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont[ItalicFont=思源宋体,BoldFont=SourceHanSerifSC-Bold]{Source Han Serif SC}
+\newcommand{\KaiTi}{\CJKfontspec{楷体}}%用命令\fzkaiti调用方正楷体简体
+
+% other packages
+\usepackage{subfigure}
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{quoting}
+\usepackage{tcolorbox}
+
+\usepackage{geometry}
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+
+\lstnewenvironment{x86asmcode}[1][]%
+{
+	\lstset{
+		tabsize=4,
+		breaklines=true,
+		frame=shadowbox,
+		breakatwhitespace=true, % 在空格处断行
+		language={[x86masm]Assembler},
+		escapeinside=``,
+		basicstyle=\ttfamily,
+		keywordstyle=\bfseries\color{NavyBlue},
+		commentstyle=\itshape\color{black!50!white},
+		literate={\ \ }{{\ \ \ \ }}4,
+		#1
+	}
+}%
+{}
+
+\lstnewenvironment{cppcode}[1][]%
+{
+	\lstset{
+		tabsize=4,
+		language={C++},
+		escapeinside=``,
+		breaklines=true,
+		frame=shadowbox, %把代码用带有阴影的框圈起来
+		breakatwhitespace=true, % 在空格处断行
+		basicstyle=\ttfamily,
+		keywordstyle=\color{blue}\ttfamily,
+		stringstyle=\color{red}\ttfamily,
+		commentstyle=\color{green}\ttfamily,
+		morecomment=[l][\color{magenta}]{\#},
+		literate={\ \ }{{\ \ \ \ }}4,
+		#1
+	}
+}%
+{}
+
+\begin{document}
+	
+	\vspace{1cm}
+	\begin{center}
+		\Huge 
+		\textbf{ThinctDbg}用法说明书\\
+		{\Large \textit{\underline{V1.0.0}}}
+		
+	\end{center}
+	\vspace{2cm}
+	
+	\leftline
+	\bigskip
+	\begin{flushleft}
+		\begin{LARGE}
+			一、 \textbf{RuntimeTrace} 运行时反汇编代码跟踪
+		\end{LARGE}
+		
+		\large 
+		\linespread{1.6} \selectfont
+		\begin{quote}
+			1. 脚本可以将运行过程中\textbf{执行过的反汇编代码}作为路径,按照要求记录下来。\\
+			\begin{quotation}
+				a. 直接阅读分析这样的单一路径的代码简单于庞杂的整体分析;\\
+				b. 基于不同的输入，可以得到不同的执行路径;\\
+				c. 可以综合多个路径来分析或猜测功能函数;\\
+				d. IDA静态分析功能强大，借助路径分析可以更加方便分析反汇编代码。
+			\end{quotation}
+			\begin{quotation}
+			记录会写入到AddrFlowEasy.asm文件中。在执行过程中,同样会\textbf{记录遇到的内存访问}。
+			\end{quotation}
+		
+			\vspace{1.2cm}
+			
+			\large 
+			2. 脚本参数用法 \\
+			\begin{quote}
+				\textcolor{blue}{ \textbf{ \Large
+				.$\backslash$RuntimeTrace.py --S 0x00402029 --E 0x0040206A --StepIn 0x00402064 --StepIn 0x68B09B26 --MustAddr 0x68B09B0A --PauseOnce 0x68B09B0A }}\\
+				\begin{quote}
+					%\begin{tcolorbox}
+					\textbf{--S}
+					\begin{quote} 指定分析的起点,\textbf{--E}指定分析的终点.也就是单步过程中必须要经过这两处地址.
+					\end{quote}
+					\textbf{--StepIn} 
+					\begin{quote}
+						指定的地址如果是遇到call的目标地址,就执行step in.
+					\end{quote}
+					\textbf{--MustAddr}
+					\begin{quote}
+					 指定的地址则必须执行到的地址，也就是说即使程序执行到--E指定的点，如果仍有MustAddr指定的地址没有达到，那么就继续执行.
+					\end{quote}
+					%\end{tcolorbox}
+				\end{quote}
+			
+			\clearpage
+			
+			\textcolor{blue}{ \textbf{ \Large
+		    .$\backslash$RuntimeTrace.py --S 0x01071AD0 --E 0x01071BC1 --StartInModules 0x01060000 --EndInModules 0x01076FF2 }} \\
+		    \begin{quote}
+		    	%\begin{tcolorbox}
+			    --S \begin{quote}指定分析的起点,--E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
+			    --StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
+			    \textbf{--StartInModules} \begin{quote}指定允许记录的模块起始点，\textbf{--EndInModules}指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
+			    %\end{tcolorbox}
+			\end{quote}
+		    
+			\bigskip
+			\bigskip
+		    
+		    \textcolor{blue}{ \textbf{ \Large
+			.$\backslash$RuntimeTrace.py --S 0x004011A0 --E 0x004012ED --StartInModules 0x00400000 --EndInModules 0x00402FFF --noEnablePrtESP }} \\
+			\begin{quote}
+				%\begin{tcolorbox}
+				--S \begin{quote}指定分析的起点,--E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
+				--StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
+				--StartInModules \begin{quote}指定允许记录的模块起始点，--EndInModules指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
+				\textbf{--noEnablePrtESP} \begin{quote}执行反汇编的过程中，不记录ESP的值。\end{quote}
+				%\end{tcolorbox}
+			\end{quote}
+			
+			\clearpage			
+			
+			\textcolor{blue}{ \textbf{ \Large
+			.$\backslash$RuntimeTrace.py --S 0x004011A0 --E 0x004012ED --StartInModules 0x00400000 --EndInModules 0x00402FFF --noEnablePrtESP --ModifyCallAddr }} \\
+			\begin{quote}
+				%\begin{tcolorbox}
+				--S \begin{quote}指定分析的起点,--E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
+				--StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
+				--StartInModules \begin{quote}指定允许记录的模块起始点，--EndInModules指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
+				--noEnablePrtESP \begin{quote}执行反汇编的过程中，不记录ESP的值。\end{quote}
+				\textbf{--ModifyCallAddr} \begin{quote}将call的目标地址修改。比如call 0x12345678改成mov eax,0x12345678和call eax. \end{quote}
+			    %\end{tcolorbox}
+			\end{quote}
+			
+			\end{quote}
+		
+			\newpage
+		
+			\begin{quote}
+				下面展示的是记录文件AddrFlowEasy.asm的部分内容:
+				\begin{x86asmcode}
+;esp : 0x0019FD1C
+;ebp : 0x0019FE0C
+/*0x00411959*/    rep stosd
+/*0x0041195B*/    mov ecx, 0x41C00D
+/*0x00411960*/    call 0x0041132F
+;esp : 0x0019FD18
+;/*0x0041132F*/    jmp 0x004119D0
+/*0x004119D0*/    push ebp
+;esp : 0x0019FD14
+/*0x004119D1*/    mov ebp, esp
+;ebp : 0x0019FD14
+/*0x004119D3*/    sub esp, 0x8
+;esp : 0x0019FD0C
+/*0x004119D6*/    mov dword ptr ss:[ebp-0x4], ecx
+;[ebp-0x4]=[0x0019FD10]=0x0019FD18
+;[ebp-0x4]=[0x0019FD10]=0x0041C00D  <-- Modify
+/*0x004119D9*/    mov eax, dword ptr ss:[ebp-0x4]
+;[ebp-0x4]=[0x0019FD10]=0x0041C00D
+/*0x004119DC*/    mov dword ptr ss:[ebp-0x8], eax
+;[ebp-0x8]=[0x0019FD0C]=0x00288000
+;[ebp-0x8]=[0x0019FD0C]=0x0041C00D  <-- Modify
+/*0x004119DF*/    mov ecx, dword ptr ss:[ebp-0x4]
+;[ebp-0x4]=[0x0019FD10]=0x0041C00D
+/*0x004119E2*/    movzx edx, byte ptr ds:[ecx]
+;[ecx]=[0x0041C00D]=0x00000101
+				\end{x86asmcode}
+			\end{quote}
+		\end{quote}
+	\end{flushleft}
+	
+	\newpage
+	
+	\begin{flushleft}
+		\begin{LARGE}
+			二、 \textbf{IDAAnalyze} 获取IDA中的反汇编代码
+		\end{LARGE}
+		
+		\bigskip
+		\bigskip
+		
+		\large 
+		\linespread{1.6} \selectfont
+		\begin{quote}
+		遍历IDA所加载模块的所有函数的反汇编代码。按照如下格式保存到了C:$\backslash$$\backslash$DisasmSet文件中:
+		\begin{x86asmcode}
+	0x004125FD    jz      short loc_41260D
+	0x004125FF    call    ds:IsDebuggerPresent
+	0x00412605    test    eax, eax
+	0x00412607    jnz     loc_41270C
+	0x0041260D    push    104h; unsigned int
+	0x00412612    lea     eax, [ebp+var_414]
+	0x00412618    push    eax; wchar_t *
+	0x00412619    lea     eax, [ebp+var_E38]
+	0x0041261F    push    eax; int *
+	0x00412620    push    104h; char
+	0x00412625    lea     eax, [ebp+var_20C]
+	0x0041262B    push    eax; wchar_t *
+	0x0041262C    lea     eax, [esi-5]
+	0x0041262F    push    eax; unsigned __int8 *
+		\end{x86asmcode}
+		
+		目前这样的输出文件，被后面章节的BreakpointTool使用。因为使用X64 Dbg的LyScript来分析机器码对应的反汇编时，经常会出现错误，分析出的反汇编代码，在x64dbg实际的代码段中并没有出现。那么可以借助这里得到的反汇编代码进行比对来进行纠错。
+		\end{quote}
+	\end{flushleft}
+	
+	\newpage
+	
+	\begin{flushleft}
+		\begin{LARGE}
+			三、 \textbf{BreakpointTool} 设置断点探查消息处理函数
+		\end{LARGE}
+		
+		\large 
+		\linespread{1.6} \selectfont
+		
+		\begin{quote}
+			\textcolor{blue}{ \textbf{ \Large
+					.$\backslash$python BreakpointTool.py --S 0x400000 --E 0x410000 \\--Step 100 }}
+			\begin{quote}
+				%\begin{tcolorbox}
+				\textbf{--S}
+				\begin{quote} 指定分析的起点,\textbf{--E}指定分析的终点.也就是单步过程中必须要经过这两处地址.
+				\end{quote}
+				\textbf{--E} 
+				\begin{quote}
+					指定的地址如果是遇到call的目标地址,就执行step in.
+				\end{quote}
+				\textbf{--Step}
+				\begin{quote}
+					指定的地址则必须执行到的地址，也就是说即使程序执行到--E指定的点，如果仍有MustAddr指定的地址没有达到，那么就继续执行.
+				\end{quote}
+				%\end{tcolorbox}
+			\end{quote}
+			
+			\bigskip
+			
+			按照指定的范围，提取地址和对应的反汇编代码。不过在这个提取过程是需要将DisasmSet文件中的代码与X64 Dbg提取的反汇编代码进行比对，只有两者在地址一致且对应的反汇编代码的操作码一致的情况下才作为设置断点的有效代码。
+			
+		\end{quote}
+		
+	\end{flushleft}
+	
+\end{document}

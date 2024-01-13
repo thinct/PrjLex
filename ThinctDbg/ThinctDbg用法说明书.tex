@@ -293,4 +293,88 @@
 		
 	\end{flushleft}
 	
+	\newpage
+	
+	\begin{flushleft}
+		\begin{LARGE}
+			四、 \textbf{RuntimeTrace IDAAnalyze BreakpointTool}结合使用 
+		\end{LARGE}
+		\large 
+		\linespread{1.6} \selectfont
+		
+		\begin{enumerate}
+			\item 修改PE的DllCharacteristics禁用ASLR
+				{
+					\small
+					\begin{quote}
+						使用\hiddenlink {https://bbs.kanxue.com/thread-279901.htm} {修改PE的DllCharacteristics禁用ASLR }.提到的代码来进行修改固定基址.
+					\end{quote}
+				}
+			\item 使用IDAAnalyze导出分析文件的反汇编代码信息(地址+反汇编指令)
+				{
+					\small
+					\begin{quote}
+						使用脚本执行之后,会导出返汇编格式的信息到 \textit{C:/DisasmSet} 文件中。大致是这样子的:
+\begin{x86asmcode}
+0x00401000    push    ebp
+0x00401001    mov     ebp, esp
+0x00401003    push    esi
+0x00401004    mov     esi, ecx
+0x00401006    xorps   xmm0, xmm0
+0x00401009    lea     eax, [esi+4]
+0x0040100C    push    eax
+0x0040100D    mov     dword ptr [esi], offset ??_7exception@std@@6B@
+0x00401013    movq    qword ptr [eax], xmm0
+0x00401017    mov     eax, [ebp+arg_0]
+0x0040101A    add     eax, 4
+0x0040101D    push    eax
+0x0040101E    call    ds:__std_exception_copy
+0x00401024    add     esp, 8
+0x00401027    mov     eax, esi
+0x00401029    pop     esi
+0x0040102A    pop     ebp
+0x0040102B    retn    4
+;-------------------------------------------
+0x00401030    lea     eax, [ecx+4]
+0x00401033    mov     dword ptr [ecx], offset ??_7exception@std@@6B@
+0x00401039    push    eax
+0x0040103A    call    ds:__std_exception_destroy
+0x00401040    pop     ecx
+0x00401041    retn
+;-------------------------------------------\end{x86asmcode}
+					\end{quote}
+				}
+			\item 使用BreakpointTool设置要分析代码的大致范围的断点
+			
+			\newpage
+			
+			\item 使用X64Dbg动态调试，只保留关注函数的入口断点。删除其他断点，禁用频繁触发的断点
+				{
+					\small
+					\begin{enumerate}
+						\item 耐心的F9运行代码
+						\item 在没有运行到自己感兴趣的功能时,可以清除已经被击中的断点,一般这种断点很大可能时和感兴趣代码是无关的代码片段
+						\item 在运行到自己感兴趣的功能时，关注被击中的断点，这种断点一般就是自己要分析的反汇编对象，但是有些明显被频繁触发的反汇编区域，可以暂时屏蔽该断点。一般这种断点可能是某种刷新函数，所以为了不妨碍接下来的F9分析其他相关函数击中断点的进度,就暂时屏蔽跳过。
+						\item 在自己感兴趣的功能运行结束或者快要结束时,可以将未被击中的断点全部删除掉，因为这块逻辑很大概率时和当前要分析的对象时无关的。
+					\end{enumerate}
+					通过上面的流程仔细筛选，基本能找到要分析功能相关的几个要分析的函数了。接下来就要分化任务了：
+					\begin{enumerate}
+						\item 将筛选过的断点保存数据库
+						\item 留下一个函数入口附近的有效断点。保证运行的时候会被击中。
+						\item 观察分析函数的最大范围。
+					\end{enumerate}
+				}
+			\item 使用RuntimeTrace自动step over关注的函数区域,其他区域进行step run.
+				{
+					\small
+					\begin{enumerate}
+						\item 根据上面分析出来的函数最大范围进行运行
+						\item 观察导出的 \textit{AddrFlowEasy.asm} 文件,分析程序流程和数据变化,进行逆向分析
+						\item 结合IDA的反汇编代码对比分析
+					\end{enumerate}
+				}
+		\end{enumerate}
+		
+	\end{flushleft}
+		
 \end{document}

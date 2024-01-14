@@ -125,19 +125,19 @@
 			2. 脚本参数用法 \\
 			\begin{quote}
 				\textcolor{blue}{ \textbf{ \Large
-				.$\backslash$RuntimeTrace.py --S 0x00402029 --E 0x0040206A --StepIn 0x00402064 --StepIn 0x68B09B26 --MustAddr 0x68B09B0A --PauseOnce 0x68B09B0A }}\\
+				.$\backslash$RuntimeTrace.py $--$S 0x00402029 $--$E 0x0040206A $--$StepIn 0x00402064 $--$StepIn 0x68B09B26 --MustAddr 0x68B09B0A $--$PauseOnce 0x68B09B0A }}\\
 				\begin{quote}
 					%\begin{tcolorbox}
-					\textbf{--S}
-					\begin{quote} 指定分析的起点,\textbf{--E}指定分析的终点.也就是单步过程中必须要经过这两处地址.
+					\textbf{$--$S}
+					\begin{quote} 指定分析的起点,\textbf{$--$E}指定分析的终点.也就是单步过程中必须要经过这两处地址.
 					\end{quote}
-					\textbf{--StepIn} 
+					\textbf{$--$StepIn} 
 					\begin{quote}
 						指定的地址如果是遇到call的目标地址,就执行step in.
 					\end{quote}
-					\textbf{--MustAddr}
+					\textbf{$--$MustAddr}
 					\begin{quote}
-					 指定的地址则必须执行到的地址，也就是说即使程序执行到--E指定的点，如果仍有MustAddr指定的地址没有达到，那么就继续执行.
+					 指定的地址则必须执行到的地址，也就是说即使程序执行到$--$E指定的点，如果仍有MustAddr指定的地址没有达到，那么就继续执行.
 					\end{quote}
 					%\end{tcolorbox}
 				\end{quote}
@@ -146,38 +146,38 @@
 			\bigskip
 			
 			\textcolor{blue}{ \textbf{ \Large
-		    .$\backslash$RuntimeTrace.py --S 0x01071AD0 --E 0x01071BC1 --StartInModules 0x01060000 --EndInModules 0x01076FF2 }} \\
+		    .$\backslash$RuntimeTrace.py $--$S 0x01071AD0 $--$E 0x01071BC1 $--$StartInModules 0x01060000 $--$EndInModules 0x01076FF2 }} \\
 		    \begin{quote}
 		    	%\begin{tcolorbox}
-			    --S \begin{quote}指定分析的起点,--E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
-			    --StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
-			    \textbf{--StartInModules} \begin{quote}指定允许记录的模块起始点，\textbf{--EndInModules}指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
+			    $--$S \begin{quote}指定分析的起点,$--$E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
+			    $--$StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
+			    \textbf{$--$StartInModules} \begin{quote}指定允许记录的模块起始点，\textbf{$--$EndInModules}指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
 			    %\end{tcolorbox}
 			\end{quote}
 		    
 			\clearpage
 		    
 		    \textcolor{blue}{ \textbf{ \Large
-			.$\backslash$RuntimeTrace.py --S 0x004011A0 --E 0x004012ED --StartInModules 0x00400000 --EndInModules 0x00402FFF --noEnablePrtESP }} \\
+			.$\backslash$RuntimeTrace.py $--$S 0x004011A0 $--$E 0x004012ED $--$StartInModules 0x00400000 $--$EndInModules 0x00402FFF $--$noEnablePrtESP }} \\
 			\begin{quote}
 				%\begin{tcolorbox}
-				--S \begin{quote}指定分析的起点,--E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
-				--StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
-				--StartInModules \begin{quote}指定允许记录的模块起始点，--EndInModules指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
-				\textbf{--noEnablePrtESP} \begin{quote}执行反汇编的过程中，不记录ESP的值。\end{quote}
+				$--$S \begin{quote}指定分析的起点,$--$E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
+				$--$StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
+				$--$StartInModules \begin{quote}指定允许记录的模块起始点，$--$EndInModules指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
+				\textbf{$--$noEnablePrtESP} \begin{quote}执行反汇编的过程中，不记录ESP的值。\end{quote}
 				%\end{tcolorbox}
 			\end{quote}
 			
 			\bigskip			
 			
 			\textcolor{blue}{ \textbf{ \Large
-			.$\backslash$RuntimeTrace.py --S 0x004011A0 --E 0x004012ED --StartInModules 0x00400000 --EndInModules 0x00402FFF --noEnablePrtESP --ModifyCallAddr }} \\
+			.$\backslash$RuntimeTrace.py $--$S 0x004011A0 $--$E 0x004012ED $--$StartInModules 0x00400000 $--$EndInModules 0x00402FFF $--$noEnablePrtESP --ModifyCallAddr }} \\
 			\begin{quote}
 				%\begin{tcolorbox}
-				--S \begin{quote}指定分析的起点,--E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
-				--StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
-				--StartInModules \begin{quote}指定允许记录的模块起始点，--EndInModules指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
-				--noEnablePrtESP \begin{quote}执行反汇编的过程中，不记录ESP的值。\end{quote}
+				$--$S \begin{quote}指定分析的起点,$--$E指定分析的终点.也就是单步过程中必须要经过这两处地址.\end{quote}
+				$--$StepIn \begin{quote}指定的地址如果是遇到call的目标地址,那么就会执行step in.\end{quote}
+				$--$StartInModules \begin{quote}指定允许记录的模块起始点，$--$EndInModules指定允许记录的模块终点。如果step in和step out的地址在指定的模块范围内,就继续执行。否则会执行step out直到单步到允许的地址范围内。\end{quote}
+				$--$noEnablePrtESP \begin{quote}执行反汇编的过程中，不记录ESP的值。\end{quote}
 				\textbf{--ModifyCallAddr} \begin{quote}将call的目标地址修改。比如call 0x12345678改成mov eax,0x12345678和call eax. \end{quote}
 			    %\end{tcolorbox}
 			\end{quote}
@@ -268,19 +268,19 @@
 		
 		\begin{quote}
 			\textcolor{blue}{ \textbf{ \Large
-					.$\backslash$python BreakpointTool.py --S 0x400000 --E 0x410000 \\--Step 100 }}
+					.$\backslash$python BreakpointTool.py $--$S 0x400000 $--$E 0x410000 \\$--$Step 100 }}
 			\begin{quote}
 				%\begin{tcolorbox}
-				\textbf{--S}
-				\begin{quote} 指定分析的起点,\textbf{--E}指定分析的终点.也就是单步过程中必须要经过这两处地址.
+				\textbf{$--$S}
+				\begin{quote} 指定分析的起点,\textbf{$--$E}指定分析的终点.也就是单步过程中必须要经过这两处地址.
 				\end{quote}
-				\textbf{--E} 
+				\textbf{$--$E} 
 				\begin{quote}
 					指定的地址如果是遇到call的目标地址,就执行step in.
 				\end{quote}
-				\textbf{--Step}
+				\textbf{$--$Step}
 				\begin{quote}
-					指定的地址则必须执行到的地址，也就是说即使程序执行到--E指定的点，如果仍有MustAddr指定的地址没有达到，那么就继续执行.
+					指定的地址则必须执行到的地址，也就是说即使程序执行到$--$E指定的点，如果仍有MustAddr指定的地址没有达到，那么就继续执行.
 				\end{quote}
 				%\end{tcolorbox}
 			\end{quote}
@@ -314,7 +314,7 @@
 				{
 					\small
 					\begin{quote}
-						使用脚本执行之后,会导出返汇编格式的信息到 \textit{C:/DisasmSet} 文件中。大致是这样子的:
+						使用脚本执行之后,会导出反汇编格式的信息到 \textit{C:/DisasmSet} 文件中。大致是这样子的:
 \begin{x86asmcode}
 0x00401000    push    ebp
 0x00401001    mov     ebp, esp
@@ -356,6 +356,15 @@
 						\item 在没有运行到自己感兴趣的功能时,可以清除已经被击中的断点,一般这种断点很大可能时和感兴趣代码是无关的代码片段
 						\item 在运行到自己感兴趣的功能时，关注被击中的断点，这种断点一般就是自己要分析的反汇编对象，但是有些明显被频繁触发的反汇编区域，可以暂时屏蔽该断点。一般这种断点可能是某种刷新函数，所以为了不妨碍接下来的F9分析其他相关函数击中断点的进度,就暂时屏蔽跳过。
 						\item 在自己感兴趣的功能运行结束或者快要结束时,可以将未被击中的断点全部删除掉，因为这块逻辑很大概率时和当前要分析的对象时无关的。
+						\begin{flushleft}
+							\begin{figure*}[htbp]
+								\centering
+								\subfigure[找到了感兴趣功能被命中的断点]{
+									\includegraphics[width=0.8\linewidth]{X64DbgBpsFilter01}
+								} 
+							\end{figure*}
+							在后面一次都没有命中的断点，可以考虑将这些断点全部删除掉。使分析问题的思路更加聚焦。退一步讲，如果担心有些断点删除会疏忽掉，可以在删除之前将环境保存到数据库.
+						\end{flushleft}
 					\end{enumerate}
 					通过上面的流程仔细筛选，基本能找到要分析功能相关的几个要分析的函数了。接下来就要分化任务了：
 					\begin{enumerate}
@@ -373,8 +382,28 @@
 						\item 结合IDA的反汇编代码对比分析
 					\end{enumerate}
 				}
+			\item 实战命令顺序.
+				{
+					
+					\small
+					BreakpointTool.py
+					\begin{enumerate}
+						\item python .$\backslash$BreakpointTool.py $--$S 0x400000 $--$E 0x410000 $--$Step 10
+						\item echo Running>ExternMsg.txt
+						\item yes
+						\item echo Reset>ExternMsg.txt
+						\item echo Over>ExternMsg.txt
+					\end{enumerate}
+					RuntimeTrace.py
+					删除一些没有命中过的断点
+					\begin{enumerate}
+						\item python.exe .$\backslash$RuntimeTrace.py $--$S 0x00403650 $--$E 0x00403B37 $--$EnableFastMode $--$EnableSnapMode
+						\item echo SnapStart>ExternMsg.txt
+						\item echo Over>ExternMsg.txt
+					\end{enumerate}
+					要注意的是，尽量在靠近功能断点附近开启SnapStart模式,在功能结束之后输入Over.
+				}
 		\end{enumerate}
-		
 	\end{flushleft}
 		
 \end{document}

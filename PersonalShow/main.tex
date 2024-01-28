@@ -11,7 +11,7 @@
 \usepackage[default]{raleway}
 \usepackage[margin=1cm, a4paper]{geometry}
 \usepackage{hyperref}
-
+\usepackage{textcomp} 
 
 % other packages
 \usepackage{subfigure}
@@ -68,7 +68,7 @@
 		\hbadness5000
 		%\backgroundcolor{c[1]}[rgb]{1,1,0.8} % cream yellow for column-1 %\backgroundcolor{g}[rgb]{0.8,1,1} % \backgroundcolor{l}[rgb]{0,0,0.7} % dark blue for left margin
 		
-		\paracolbackgroundoptions
+		% \paracolbackgroundoptions
 		
 		% 0.9,0.9,0.9 -- 0.8,0.8,0.8
 		
@@ -161,10 +161,10 @@
 		
 		\section*{产品简介}
 		\begin{tabular}{r| p{0.5\textwidth} c}
-			\cvevent{2022--至今}{\hiddenlink{https://www.lasermaker.com.cn/}{Laser Maker V2.0}}{GuangDong}{DongGuan \color{cvred}}{LaserMaker是一款为创客科教市场研发的激光绘图建模软件。不仅仅是一款易用的绘图软件，还将激光工艺与模拟造物融为一体。LaserMaker便于快速建模，
+			\cvevent{2022--至今}{\hiddenlink{https://www.lasermaker.com.cn/}{Laser Maker V2.0}}{GuangDong}{DongGuan \color{cvred}}{\scriptsize \linespread{1.5} \selectfont LaserMaker是一款为创客科教市场研发的激光绘图建模软件。不仅仅是一款易用的绘图软件，还将激光工艺与模拟造物融为一体。LaserMaker便于快速建模，
 				还能让使用者加深对激光工艺和加工原理的认识。作为一款教学性强的建模软件，同时适用于理论与实操学习。}{lasermaker.png} \\
 			\vspace{1.0em}
-			\cvevent{2012--2021}{\hiddenlink{http://net.bangong.cn:8771/content/details67_628.html}{SciSmart V2.0\&V3.0}}{GuangDong}{DongGuan \color{cvred}}{SciSmart智能视觉软件三代（以下简称SciSmart3）是一款简单易用、功能齐全、性能稳定的智能型视觉系统软件。SciSmart3由OPT自主研发，集成了预处理、定位、测量、检测、识别、3D聚焦、自动对焦、3D结构光测量、双目立体测量、光度立体技术等一系列图像处理工具。兼容市面上可见的主流相机品牌和GeniCam协议。支持串口、TCP等多种通讯模式及主流的通讯协议，能够方便的与各品牌运动控制设备建立数据交互。
+			\cvevent{2012--2021}{\hiddenlink{http://net.bangong.cn:8771/content/details67_628.html}{SciSmart V2.0\&V3.0}}{GuangDong}{DongGuan \color{cvred}}{\scriptsize \linespread{1.5} \selectfont SciSmart智能视觉软件三代（以下简称SciSmart3）是一款简单易用、功能齐全、性能稳定的智能型视觉系统软件。SciSmart3由OPT自主研发，集成了预处理、定位、测量、检测、识别、3D聚焦、自动对焦、3D结构光测量、双目立体测量、光度立体技术等一系列图像处理工具。兼容市面上可见的主流相机品牌和GeniCam协议。支持串口、TCP等多种通讯模式及主流的通讯协议，能够方便的与各品牌运动控制设备建立数据交互。
 				
 				SciSmart3采用图形化编程代替代码编程，从而缩短项目开发周期。流程设计、流程复用方式以及流程与事件触发机制的组合方式，能够简化视觉检测项目流程。}{logo_OPT.png} \\
 		\end{tabular}
@@ -190,19 +190,51 @@
 		\end{tabular}
 		\end{minipage}
 		
-		\vspace{2em}
+		\vspace{1em}
+		
+		
 		\begin{minipage}[t]{0.7\textwidth}
-			\section*{技术分享文章(看雪论坛)}
-			\begin{tabular}{>{\footnotesize\bfseries}l >{\footnotesize}p{0.55\textwidth}}
-				二进制修复中文乱码的问题(161K+) & \href{https://zhuanlan.kanxue.com/article-16938.htm}{https://zhuanlan.kanxue.com/article-16938.htm} \\
-				优化逆向编程环境(10K+ 优) & \href{https://bbs.kanxue.com/thread-276273.htm}{https://bbs.kanxue.com/thread-276273.htm} \\
-				Qt，一个习惯引起的无效堆内存 & \href{https://bbs.kanxue.com/thread-275353.htm}{https://bbs.kanxue.com/thread-275353.htm} \\
-				堆栈破坏-Windows下Qt调用MFC的DLL & \href{https://bbs.kanxue.com/thread-276097.htm}{https://bbs.kanxue.com/thread-276097.htm}
-			\end{tabular}
-			\bigskip
+			\section*{个人领导团队经历}
+			
+			\begin{minipage}[t]{\textwidth}
+				\begin{minipage}[t]{0.25\textwidth}
+					\textbf{\underline{制定项目研发流程}}
+					\begin{enumerate}
+						\item 分析需求
+						\item 制定开发计划
+						\item 评估项目周期
+						\item 任务分解和派发
+						\item 组织测试
+						\item 验收
+					\end{enumerate}
+				\end{minipage} 
+				\hfill
+				\begin{minipage}[t]{0.33\textwidth}
+					\textbf{\underline{敏捷开发管理}}
+					\begin{enumerate}
+						\item 使用禅道做敏捷开发管理
+						\item 项目集创建和管理
+						\item 产品需求分析管理
+						\item 组建测试团队并进行BUG测试管理
+						\item 进度和风险管理
+					\end{enumerate}
+				\end{minipage} 
+				\hfill
+				\begin{minipage}[t]{0.35\textwidth}
+					\textbf{\underline{人才招聘和培养}}
+					\begin{enumerate}
+						\item 招聘人才
+						\item Qt零基础培养，3\textasciitilde6个月后可独挡一面
+						\item 项目难点分析经验分享
+						\item 协助同事攻坚，并分享思路
+					\end{enumerate}
+				\end{minipage}
+				\bigskip
+			\end{minipage}
 		\end{minipage}
 		
-		\vspace{2em}
+		
+		\vspace{1em}
 		
 		\vfill{} % Whitespace before final footer
 		
@@ -242,6 +274,7 @@
 					\item 线程判断功能。能有效规避现场人员错误使用\\线程的问题
 					\item 逻辑判断完整且灵活
 				\end{enumerate}
+				\vspace{0.8em}
 				本控件是SciCamera软件的最重要的界面之一。主要是完成所有模块的流程逻辑任务，快速实现客户非标任务。流程算子块可以完成顺序，分支控制等基本功能。对线程有稳定性支持，可以有效提升任务执行效率，且能让新手有效避免线程安全这类复杂性问题。
 			\end{flushleft}
 		\end{minipage}
@@ -253,7 +286,7 @@
 		\begin{flushleft}
 			\includegraphics[width=0.8\linewidth]{PrjOPT_3.png} 
 			\vfill
-			\vspace{2em}
+			\vspace{5em}
 			C++和脚本混编，提高公共平台软件的灵活性。在非标项目中，可以灵活修改通信格式进行与不同PLC格式通讯协议。
 			\\本控件是SciCamera软件的最重要的模块之一。主要是解决各个模块数据的简单逻辑处理，使不同模块在流程图的逻辑部署下，数据能有效的按需求传递。
 		\end{flushleft}
@@ -274,7 +307,7 @@
 	\vspace{1em}
 	
 	\begin{minipage}[t]{\textwidth}
-		\section*{开发经验:LaserMakser主要负责人}
+		\section*{开发经验:LaserMaker主要负责人}
 		\begin{minipage}[thbp]{0.3\textwidth}
 			\includegraphics[width=\linewidth]{PrjTL_1.png}
 		\end{minipage} \hfill
@@ -290,7 +323,7 @@
 		\bigskip
 	\end{minipage}
 	
-	\vspace{0.2em}
+	\vspace{0.1em}
 	
 	\vfill{} % Whitespace before final footer
 	
@@ -311,8 +344,9 @@
 		\begin{minipage}[t]{\textwidth}
 			\begin{minipage}[thbp]{0.3\textwidth}
 				\includegraphics[width=\linewidth]{PrjMy_1.png}
-			\end{minipage} \hfill
-			\begin{minipage}[thbp!]{0.6\textwidth}
+			\end{minipage} 
+			\hfill
+			\begin{minipage}[thbp]{0.6\textwidth}
 				\textbf{\underline{线材分线系统}}
 				\begin{enumerate}
 					\item 准确率干分之三
@@ -328,10 +362,14 @@
 			\bigskip
 		\end{minipage}
 		
-		\vspace{5em}
+		\vspace{2em}
 		
-		\begin{minipage}[t]{\textwidth}
-			\begin{minipage}[thbp!]{0.6\textwidth}
+		\begin{minipage}[thbp]{\textwidth}
+			\begin{minipage}[thbp]{0.3\textwidth}
+				\includegraphics[width=\linewidth]{PrjMy_2.png}
+			\end{minipage} 
+			\hfill
+			\begin{minipage}[th]{0.6\textwidth}
 				\textbf{\underline{字符缺陷检测和识别系统}}
 				\begin{enumerate}
 					\item 对不同产品进行油墨缺陷检测.多印缺印，重影等检测。
@@ -339,19 +377,19 @@
 					\item 二维码识别
 					\item 连接MES系统等
 				\end{enumerate}
+				\vfill
+				\vspace{5em}
 			\end{minipage}
-		\begin{minipage}[thbp]{0.3\textwidth}
-			\includegraphics[width=\linewidth]{PrjMy_2.png}
-		\end{minipage} \hfill
 		\bigskip
 		\end{minipage}
 		
-		\vspace{5em}
+		\vspace{2em}
 		
-		\begin{minipage}[t]{\textwidth}
+		\begin{minipage}[thbp]{\textwidth}
 		\begin{minipage}[thbp]{0.3\textwidth}
 			\includegraphics[width=\linewidth]{PrjMy_3.png}
-		\end{minipage} \hfill
+		\end{minipage} 
+		\hfill
 		\begin{minipage}[thbp!]{0.6\textwidth}
 			\textbf{\underline{流水线机器人传动带分拣系统}}
 			\begin{enumerate}
@@ -368,62 +406,19 @@
 		\bigskip
 	\end{minipage}
 	
-	
-	
-	\vspace{12em}
-	
-	\vfill{} % Whitespace before final footer
-	
-	%----------------------------------------------------------------------------------------
-	%	FINAL FOOTER
-	%----------------------------------------------------------------------------------------
-	\setlength{\parindent}{0pt}
-	\begin{minipage}[t]{\linewidth}
-		\begin{flushright}\fontfamily{\sfdefault}\selectfont \color{black!70}
-			{\icon{\faMapMarker}{cvgreen}{} GuangDong/DongGuan \icon{\faPhone}{cvgreen}{} 13265599720 \icon{\faAt}{cvgreen}{} \protect\url{thinct_123@foxmail.com}
-			}
-		\end{flushright}
-	\end{minipage}
-	
-	\clearpage
+	\vspace{2em}
+	\vfill{}
 	
 	\begin{minipage}[t]{\textwidth}
-		\section*{个人领导团队经历}
-		
-		\begin{minipage}[t]{\textwidth}
-			\begin{minipage}[thbp]{0.3\textwidth}
-				\textbf{\underline{制定项目研发流程}}
-				\begin{enumerate}
-					\item 分析需求
-					\item 制定开发计划
-					\item 评估项目周期
-					\item 任务分解和派发
-					\item 组织测试
-					\item 验收
-				\end{enumerate}
-			\end{minipage} \hfill
-			\begin{minipage}[thbp]{0.3\textwidth}
-			\textbf{\underline{敏捷开发管理}}
-			\begin{enumerate}
-				\item 使用禅道做敏捷开发管理
-				\item 项目集创建和管理
-				\item 产品需求分析管理
-				\item 组建测试团队并进行BUG测试管理
-				\item 进度和风险管理
-			\end{enumerate}
-			\end{minipage} \hfill
-			\begin{minipage}[thbp]{0.3\textwidth}
-			\textbf{\underline{人才招聘和培养}}
-			\begin{enumerate}
-				\item 招聘人才
-				\item 一小时1000多条
-				\item Qt零基础培养，3~6个月后可独挡一面
-				\item 项目难点分析经验分享
-				\item 协助同事攻坚，并分享思路
-			\end{enumerate}
-			\end{minipage}
-			\bigskip
-		\end{minipage}
+		\section*{技术分享文章(\hiddenlink{https://bbs.kanxue.com/homepage-940598.htm}{看雪论坛})}
+		\begin{tabular}{>{\scriptsize\bfseries\linespread{1.6} \selectfont}l >{\footnotesize}p{0.55\textwidth}}
+			
+			二进制修复中文乱码的问题(161K+) & \href{https://zhuanlan.kanxue.com/article-16938.htm}{https://zhuanlan.kanxue.com/article-16938.htm} \\
+			优化逆向编程环境(10K+ 优) & \href{https://bbs.kanxue.com/thread-276273.htm}{https://bbs.kanxue.com/thread-276273.htm} \\
+			Qt，一个习惯引起的无效堆内存 & \href{https://bbs.kanxue.com/thread-275353.htm}{https://bbs.kanxue.com/thread-275353.htm} \\
+			堆栈破坏-Windows下Qt调用MFC的DLL & \href{https://bbs.kanxue.com/thread-276097.htm}{https://bbs.kanxue.com/thread-276097.htm}
+		\end{tabular}
+		\bigskip
 	\end{minipage}
 	
 	\vspace{3em}
